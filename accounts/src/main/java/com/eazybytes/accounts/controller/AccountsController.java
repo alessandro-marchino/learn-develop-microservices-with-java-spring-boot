@@ -11,16 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ResponseDto;
+import com.eazybytes.accounts.service.IAccountService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequiredArgsConstructor
 public class AccountsController {
+
+	private final IAccountService accountService;
 
 	@PostMapping("/create")
 	public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto) {
+		accountService.createAccount(customerDto);
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
-				.body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201))
-				;
+				.body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
 	}
 }

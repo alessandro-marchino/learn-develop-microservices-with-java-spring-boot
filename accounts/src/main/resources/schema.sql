@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS customer (
     updated_by VARCHAR(20) DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS accounts (
+CREATE TABLE IF NOT EXISTS account (
     account_number INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
     account_type VARCHAR(100) NOT NULL,
