@@ -11,4 +11,5 @@ import com.eazybytes.accounts.entity.Account;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
 	Optional<Account> findByCustomerId(Long customerId);
+	long deleteByCustomerId(Long customerId);
 }
