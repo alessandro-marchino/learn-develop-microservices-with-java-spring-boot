@@ -18,6 +18,9 @@ import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.service.IAccountService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -27,10 +30,19 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE })
 @RequiredArgsConstructor
 @Validated
+@Tag(
+	name = "CRUD REST APIs for Accounts in EazyBank",
+	description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE account details"
+)
 public class AccountsController {
 
 	private final IAccountService accountService;
 
+	@Operation(
+		summary = "Create Account REST API",
+		description = "REST API to create new Customer & Account inside EazyBank"
+	)
+	@ApiResponse(responseCode = "201", description = "HTTP status CREATED")
 	@PostMapping("/create")
 	public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
 		accountService.createAccount(customerDto);
@@ -39,6 +51,11 @@ public class AccountsController {
 				.body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
 	}
 
+	@Operation(
+		summary = "Fetch Account Details REST API",
+		description = "REST API to fetch Customer & Account details based on a mobile number"
+	)
+	@ApiResponse(responseCode = "200", description = "HTTP status OK")
 	@GetMapping("/fetch")
 	public ResponseEntity<CustomerDto> fetchAccountDetails(
 			@RequestParam("mobileNumber")
@@ -50,7 +67,13 @@ public class AccountsController {
 				.status(HttpStatus.OK)
 				.body(customerDto);
 	}
-	
+
+	@Operation(
+		summary = "Update Account Details REST API",
+		description = "REST API to update Customer & Account details based on a mobile number"
+	)
+	@ApiResponse(responseCode = "200", description = "HTTP status OK")
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR")
 	@PutMapping("/update")
 	public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
 		boolean isUpdated = accountService.updateAccount(customerDto);
@@ -64,6 +87,12 @@ public class AccountsController {
 				.body(new ResponseDto(AccountsConstants.STATUS_500, AccountsConstants.MESSAGE_500));
 	}
 
+	@Operation(
+		summary = "Delete Account Details REST API",
+		description = "REST API to delete Customer & Account details based on a mobile number"
+	)
+	@ApiResponse(responseCode = "200", description = "HTTP status OK")
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR")
 	@DeleteMapping("/delete")
 	public ResponseEntity<ResponseDto> deleteAccountDetails(
 			@RequestParam("mobileNumber")
