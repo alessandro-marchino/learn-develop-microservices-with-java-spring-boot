@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.CustomerDto;
+import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.service.IAccountService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -73,7 +76,9 @@ public class AccountsController {
 		description = "REST API to update Customer & Account details based on a mobile number"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
-	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR")
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
 	@PutMapping("/update")
 	public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
 		boolean isUpdated = accountService.updateAccount(customerDto);
@@ -92,7 +97,9 @@ public class AccountsController {
 		description = "REST API to delete Customer & Account details based on a mobile number"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
-	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR")
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
+			schema = @Schema(implementation = ErrorResponseDto.class)
+			))
 	@DeleteMapping("/delete")
 	public ResponseEntity<ResponseDto> deleteAccountDetails(
 			@RequestParam("mobileNumber")
