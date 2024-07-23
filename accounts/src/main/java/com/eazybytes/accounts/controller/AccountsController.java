@@ -59,6 +59,12 @@ public class AccountsController {
 		description = "REST API to fetch Customer & Account details based on a mobile number"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
+	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
 	@GetMapping("/fetch")
 	public ResponseEntity<CustomerDto> fetchAccountDetails(
 			@RequestParam("mobileNumber")
@@ -76,6 +82,12 @@ public class AccountsController {
 		description = "REST API to update Customer & Account details based on a mobile number"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
+	@ApiResponse(responseCode = "417", description = "HTTP status EXPECTATION FAILED", content = @Content(
+		schema = @Schema(implementation = ResponseDto.class)
+	))
+	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
 		schema = @Schema(implementation = ErrorResponseDto.class)
 	))
@@ -88,8 +100,8 @@ public class AccountsController {
 					.body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
 		}
 		return ResponseEntity
-				.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body(new ResponseDto(AccountsConstants.STATUS_500, AccountsConstants.MESSAGE_500));
+				.status(HttpStatus.EXPECTATION_FAILED)
+				.body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_UPDATE));
 	}
 
 	@Operation(
@@ -97,9 +109,15 @@ public class AccountsController {
 		description = "REST API to delete Customer & Account details based on a mobile number"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
+	@ApiResponse(responseCode = "417", description = "HTTP status EXPECTATION FAILED", content = @Content(
+		schema = @Schema(implementation = ResponseDto.class)
+	))
+	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
-			schema = @Schema(implementation = ErrorResponseDto.class)
-			))
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
 	@DeleteMapping("/delete")
 	public ResponseEntity<ResponseDto> deleteAccountDetails(
 			@RequestParam("mobileNumber")
@@ -113,7 +131,7 @@ public class AccountsController {
 					.body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
 		}
 		return ResponseEntity
-				.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body(new ResponseDto(AccountsConstants.STATUS_500, AccountsConstants.MESSAGE_500));
+				.status(HttpStatus.EXPECTATION_FAILED)
+				.body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
 	}
 }
