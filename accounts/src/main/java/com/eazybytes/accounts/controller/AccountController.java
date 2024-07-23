@@ -37,7 +37,7 @@ import lombok.RequiredArgsConstructor;
 	name = "CRUD REST APIs for Accounts in EazyBank",
 	description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE account details"
 )
-public class AccountsController {
+public class AccountController {
 
 	private final IAccountService accountService;
 
@@ -46,6 +46,9 @@ public class AccountsController {
 		description = "REST API to create new Customer & Account inside EazyBank"
 	)
 	@ApiResponse(responseCode = "201", description = "HTTP status CREATED")
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
 	@PostMapping("/create")
 	public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
 		accountService.createAccount(customerDto);
