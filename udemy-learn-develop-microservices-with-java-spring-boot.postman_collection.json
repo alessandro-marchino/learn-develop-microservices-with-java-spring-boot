@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "819993cb-c254-4c89-8d0a-af914997fcc0",
+		"name": "udemy/learn-develop-microservices-with-java-spring-boot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29911340"
+	},
+	"item": [
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "Create account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Madan Reddy\",\r\n    \"email\": \"tutor@eazybytes.com\",\r\n    \"mobileNumber\": \"4354437687\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostAccounts}}/create",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update account",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Madan Reddy1\",\r\n    \"email\": \"tutor@eazybytes.com\",\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"accountDto\": {\r\n        \"accountNumber\": 34809077239,\r\n        \"accountType\": \"Savings\",\r\n        \"branchAddress\": \"14 Main Street, New York\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostAccounts}}/update",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostAccounts}}/fetch?mobileNumber=4354437687",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"fetch"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostAccounts}}/delete?mobileNumber=4354437687",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"delete"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cards",
+			"item": [
+				{
+					"name": "Create card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{hostCards}}/create?mobileNumber=4354437687",
+							"host": [
+								"{{hostCards}}"
+							],
+							"path": [
+								"create"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update card",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"cardNumber\": \"100152752853\",\r\n    \"cardType\": \"Credit Card\",\r\n    \"totalLimit\": 1000000,\r\n    \"amountUsed\": 200000,\r\n    \"availableAmount\": 800000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostCards}}/update",
+							"host": [
+								"{{hostCards}}"
+							],
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostCards}}/fetch?mobileNumber=4354437687",
+							"host": [
+								"{{hostCards}}"
+							],
+							"path": [
+								"fetch"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete card",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostCards}}/delete?mobileNumber=4354437687",
+							"host": [
+								"{{hostCards}}"
+							],
+							"path": [
+								"delete"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "loans",
+			"item": [
+				{
+					"name": "Create loan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{hostLoans}}/create?mobileNumber=4354437687",
+							"host": [
+								"{{hostLoans}}"
+							],
+							"path": [
+								"create"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update loan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"loanNumber\": \"100065333456\",\r\n    \"loanType\": \"Home Loan\",\r\n    \"totalLoan\": 1000000,\r\n    \"amountPaid\": 100000,\r\n    \"outstandingAmount\": 900000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostLoans}}/update",
+							"host": [
+								"{{hostLoans}}"
+							],
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch loan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostLoans}}/fetch?mobileNumber=4354437687",
+							"host": [
+								"{{hostLoans}}"
+							],
+							"path": [
+								"fetch"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete loan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostLoans}}/delete?mobileNumber=4354437687",
+							"host": [
+								"{{hostLoans}}"
+							],
+							"path": [
+								"delete"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostAccounts",
+			"value": "localhost:8080/api",
+			"type": "string"
+		},
+		{
+			"key": "hostLoans",
+			"value": "localhost:8090/api",
+			"type": "string"
+		},
+		{
+			"key": "hostCards",
+			"value": "localhost:9000/api",
+			"type": "string"
+		}
+	]
+}
