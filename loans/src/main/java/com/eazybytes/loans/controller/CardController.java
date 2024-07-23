@@ -1,4 +1,4 @@
-package com.eazybytes.cards.controller;
+package com.eazybytes.loans.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eazybytes.cards.constants.CardsConstants;
-import com.eazybytes.cards.dto.CardDto;
-import com.eazybytes.cards.dto.ErrorResponseDto;
-import com.eazybytes.cards.dto.ResponseDto;
-import com.eazybytes.cards.service.ICardService;
+import com.eazybytes.loans.constants.LoansConstants;
+import com.eazybytes.loans.dto.ErrorResponseDto;
+import com.eazybytes.loans.dto.LoanDto;
+import com.eazybytes.loans.dto.ResponseDto;
+import com.eazybytes.loans.service.ILoanService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,16 +34,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Validated
 @Tag(
-	name = "CRUD REST APIs for Cards in EazyBank",
-	description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE card details"
+	name = "CRUD REST APIs for Loans in EazyBank",
+	description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE loan details"
 )
 public class CardController {
 
-	private final ICardService cardService;
+	private final ILoanService loanService;
 
 	@Operation(
-		summary = "Create Card REST API",
-		description = "REST API to create new Card inside EazyBank"
+		summary = "Create Loan REST API",
+		description = "REST API to create new Loan inside EazyBank"
 	)
 	@ApiResponse(responseCode = "201", description = "HTTP status CREATED")
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
@@ -51,15 +51,15 @@ public class CardController {
 	))
 	@PostMapping("/create")
 	public ResponseEntity<ResponseDto> createCard(@Valid @RequestParam @Pattern(regexp="(^$|[0-9]{10})", message = "Mobile number must be 10 digits") String mobileNumber) {
-		cardService.createCard(mobileNumber);
+		loanService.createLoan(mobileNumber);
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
-				.body(new ResponseDto(CardsConstants.STATUS_201, CardsConstants.MESSAGE_201));
+				.body(new ResponseDto(LoansConstants.STATUS_201, LoansConstants.MESSAGE_201));
 	}
 
 	@Operation(
-		summary = "Fetch Card Details REST API",
-		description = "REST API to fetch Card details based on a mobile number"
+		summary = "Fetch Loan Details REST API",
+		description = "REST API to fetch Loan details based on a mobile number"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(
@@ -69,20 +69,20 @@ public class CardController {
 		schema = @Schema(implementation = ErrorResponseDto.class)
 	))
 	@GetMapping("/fetch")
-	public ResponseEntity<CardDto> fetchCardDetails(
+	public ResponseEntity<LoanDto> fetchCardDetails(
 			@RequestParam("mobileNumber")
 			@NotEmpty(message = "Account number cannot be null or empty")
 			@Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits")
 			String mobileNumber) {
-		CardDto cardDto = cardService.fetchCard(mobileNumber);
+		LoanDto loanDto = loanService.fetchLoan(mobileNumber);
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(cardDto);
+				.body(loanDto);
 	}
 
 	@Operation(
-		summary = "Update Card Details REST API",
-		description = "REST API to update Card details based on a mobile number"
+		summary = "Update Loan Details REST API",
+		description = "REST API to update Loan details based on a mobile number"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
 	@ApiResponse(responseCode = "417", description = "HTTP status EXPECTATION FAILED", content = @Content(
@@ -95,21 +95,21 @@ public class CardController {
 		schema = @Schema(implementation = ErrorResponseDto.class)
 	))
 	@PutMapping("/update")
-	public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CardDto cardDto) {
-		boolean isUpdated = cardService.updateCard(cardDto);
+	public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody LoanDto cardDto) {
+		boolean isUpdated = loanService.updateLoan(cardDto);
 		if(isUpdated) {
 			return ResponseEntity
 					.status(HttpStatus.OK)
-					.body(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200));
+					.body(new ResponseDto(LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
 		}
 		return ResponseEntity
 				.status(HttpStatus.EXPECTATION_FAILED)
-				.body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_UPDATE));
+				.body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_UPDATE));
 	}
 
 	@Operation(
-		summary = "Delete Card Details REST API",
-		description = "REST API to delete Card details based on a mobile number"
+		summary = "Delete Loan Details REST API",
+		description = "REST API to delete Loan details based on a mobile number"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
 	@ApiResponse(responseCode = "417", description = "HTTP status EXPECTATION FAILED", content = @Content(
@@ -127,14 +127,14 @@ public class CardController {
 			@NotEmpty(message = "Account number cannot be null or empty")
 			@Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits")
 			String mobileNumber) {
-		boolean isDeleted = cardService.deleteCard(mobileNumber);
+		boolean isDeleted = loanService.deleteLoan(mobileNumber);
 		if(isDeleted) {
 			return ResponseEntity
 					.status(HttpStatus.OK)
-					.body(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200));
+					.body(new ResponseDto(LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
 		}
 		return ResponseEntity
 				.status(HttpStatus.EXPECTATION_FAILED)
-				.body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_DELETE));
+				.body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
 	}
 }
