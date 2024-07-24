@@ -11,6 +11,7 @@
     <artifactId>loans</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>loans</name>
+    <packaging>jar</packaging>
     <description>Microservice for Loans</description>
     <properties>
         <java.version>21</java.version>
@@ -67,6 +68,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <image>
+                        <name>marchino/${project.artifactId}:s4</name>
+                    </image>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
