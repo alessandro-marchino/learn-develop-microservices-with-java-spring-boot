@@ -17,3 +17,6 @@ spring:
     show-sql: true
 server:
   port: 8080
+
+build:
+  version: "1.0"

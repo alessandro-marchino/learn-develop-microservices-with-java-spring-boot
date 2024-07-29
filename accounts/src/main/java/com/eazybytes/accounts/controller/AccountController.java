@@ -1,5 +1,6 @@
 package com.eazybytes.accounts.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,9 @@ import lombok.RequiredArgsConstructor;
 public class AccountController {
 
 	private final IAccountService accountService;
+
+	@Value("${build.version}")
+	private String buildVersion;
 
 	@Operation(
 		summary = "Create Account REST API",
@@ -136,5 +140,23 @@ public class AccountController {
 		return ResponseEntity
 				.status(HttpStatus.EXPECTATION_FAILED)
 				.body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
+	}
+
+	@Operation(
+		summary = "Get build information",
+		description = "Get build information that is deployed into accounts microservice"
+	)
+	@ApiResponse(responseCode = "200", description = "HTTP status OK")
+	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
+	@GetMapping("/build-info")
+	public ResponseEntity<String> getBuildInfo() {
+		return ResponseEntity
+				.ok()
+				.body(buildVersion);
 	}
 }

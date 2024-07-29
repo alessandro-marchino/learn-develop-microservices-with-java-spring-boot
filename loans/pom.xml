@@ -15,6 +15,7 @@
     <description>Microservice for Loans</description>
     <properties>
         <java.version>21</java.version>
+        <docker-tag>s6</docker-tag>
     </properties>
     <dependencies>
         <dependency>
@@ -69,7 +70,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>marchino/${project.artifactId}:s4</name>
+                        <name>marchino/${project.artifactId}:${docker-tag}</name>
                     </image>
                     <excludes>
                         <exclude>
@@ -88,7 +89,7 @@
                         <image>eclipse-temurin:21-jre-alpine</image>
                     </from>
                     <to>
-                        <image>marchino/${project.artifactId}:s4</image>
+                        <image>marchino/${project.artifactId}:${docker-tag}</image>
                     </to>
                 </configuration>
             </plugin>
