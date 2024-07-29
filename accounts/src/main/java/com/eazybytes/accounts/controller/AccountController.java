@@ -1,6 +1,7 @@
 package com.eazybytes.accounts.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,7 @@ import lombok.RequiredArgsConstructor;
 public class AccountController {
 
 	private final IAccountService accountService;
+	private final Environment environment;
 
 	@Value("${build.version}")
 	private String buildVersion;
@@ -158,5 +160,23 @@ public class AccountController {
 		return ResponseEntity
 				.ok()
 				.body(buildVersion);
+	}
+
+	@Operation(
+		summary = "Get java version information",
+		description = "Get java version information that is deployed into accounts microservice"
+	)
+	@ApiResponse(responseCode = "200", description = "HTTP status OK")
+	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
+	@GetMapping("/java-version")
+	public ResponseEntity<String> getJavaVersion() {
+		return ResponseEntity
+				.ok()
+				.body(environment.getProperty("JAVA_HOME", "unknown"));
 	}
 }
