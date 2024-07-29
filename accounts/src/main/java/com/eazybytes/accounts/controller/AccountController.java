@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eazybytes.accounts.constants.AccountsConstants;
+import com.eazybytes.accounts.dto.AccountContactInfoDto;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
@@ -43,6 +44,7 @@ public class AccountController {
 
 	private final IAccountService accountService;
 	private final Environment environment;
+	private final AccountContactInfoDto accountContactInfo;
 
 	@Value("${build.version}")
 	private String buildVersion;
@@ -163,8 +165,8 @@ public class AccountController {
 	}
 
 	@Operation(
-		summary = "Get java version information",
-		description = "Get java version information that is deployed into accounts microservice"
+		summary = "Get java version",
+		description = "Get java version details that is deployed into accounts microservice"
 	)
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(
@@ -178,5 +180,25 @@ public class AccountController {
 		return ResponseEntity
 				.ok()
 				.body(environment.getProperty("JAVA_HOME", "unknown"));
+	}
+
+	@Operation(
+		summary = "Get contact info",
+		description = "Contact info details that can be reached out in case of any issues"
+	)
+	@ApiResponse(responseCode = "200", description = "HTTP status OK", content = @Content(
+		schema = @Schema(implementation = AccountContactInfoDto.class)
+	))
+	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
+	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(
+		schema = @Schema(implementation = ErrorResponseDto.class)
+	))
+	@GetMapping("/contact-info")
+	public ResponseEntity<AccountContactInfoDto> getConcactInfo() {
+		return ResponseEntity
+				.ok()
+				.body(accountContactInfo);
 	}
 }
