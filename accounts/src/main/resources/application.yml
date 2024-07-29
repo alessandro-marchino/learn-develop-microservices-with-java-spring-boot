@@ -15,11 +15,15 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import:
+      - application-qa.yml
+      - application-prod.yml
 server:
   port: 8080
 
 build:
-  version: "1.0"
+  version: "3.0"
 
 accounts:
   message: Welcome to EazyBank accounts related local APIs
