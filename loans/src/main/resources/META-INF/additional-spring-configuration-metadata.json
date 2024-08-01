@@ -1,0 +1,11 @@
+{"properties": [
+  {
+    "name": "build.version",
+    "type": "java.lang.String",
+    "description": "Build version"
+  },
+  {
+    "name": "loans",
+    "type": "com.eazybytes.loans.dto.LoanContactInfoDto"
+  }
+]}

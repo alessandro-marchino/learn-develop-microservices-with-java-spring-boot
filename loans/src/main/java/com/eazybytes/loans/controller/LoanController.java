@@ -1,4 +1,4 @@
-package com.eazybytes.accounts.controller;
+package com.eazybytes.loans.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eazybytes.accounts.constants.AccountsConstants;
-import com.eazybytes.accounts.dto.AccountContactInfoDto;
-import com.eazybytes.accounts.dto.CustomerDto;
-import com.eazybytes.accounts.dto.ErrorResponseDto;
-import com.eazybytes.accounts.dto.ResponseDto;
-import com.eazybytes.accounts.service.IAccountService;
+import com.eazybytes.loans.constants.LoansConstants;
+import com.eazybytes.loans.dto.ErrorResponseDto;
+import com.eazybytes.loans.dto.LoanContactInfoDto;
+import com.eazybytes.loans.dto.LoanDto;
+import com.eazybytes.loans.dto.ResponseDto;
+import com.eazybytes.loans.service.ILoanService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -36,71 +36,72 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @RequiredArgsConstructor
 @Validated
-@Tag(name = "CRUD REST APIs for Accounts in EazyBank", description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE account details")
-public class AccountController {
+@Tag(name = "CRUD REST APIs for Loans in EazyBank", description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE loan details")
+public class LoanController {
 
-	private final IAccountService accountService;
+	private final ILoanService loanService;
 	private final Environment environment;
-	private final AccountContactInfoDto accountContactInfo;
+	private final LoanContactInfoDto loanContactInfo;
 
 	@Value("${build.version}")
 	private String buildVersion;
 
-	@Operation(summary = "Create Account REST API", description = "REST API to create new Customer & Account inside EazyBank")
+	@Operation(summary = "Create Loan REST API", description = "REST API to create new Loan inside EazyBank")
 	@ApiResponse(responseCode = "201", description = "HTTP status CREATED")
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@PostMapping("/create")
-	public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
-		accountService.createAccount(customerDto);
-		return ResponseEntity
-				.status(HttpStatus.CREATED)
-				.body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
+	public ResponseEntity<ResponseDto> createCard(
+			@Valid @RequestParam @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits") String mobileNumber) {
+		loanService.createLoan(mobileNumber);
+		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto(
+				LoansConstants.STATUS_201, LoansConstants.MESSAGE_201));
 	}
 
-	@Operation(summary = "Fetch Account Details REST API", description = "REST API to fetch Customer & Account details based on a mobile number")
+	@Operation(summary = "Fetch Loan Details REST API", description = "REST API to fetch Loan details based on a mobile number")
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/fetch")
-	public ResponseEntity<CustomerDto> fetchAccountDetails(@RequestParam @NotEmpty(message = "Account number cannot be null or empty") @Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits") String mobileNumber) {
-		CustomerDto customerDto = accountService.fetchAccount(mobileNumber);
-		return ResponseEntity.status(HttpStatus.OK).body(customerDto);
+	public ResponseEntity<LoanDto> fetchCardDetails(
+			@RequestParam @NotEmpty(message = "Account number cannot be null or empty") @Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits") String mobileNumber) {
+		LoanDto loanDto = loanService.fetchLoan(mobileNumber);
+		return ResponseEntity.status(HttpStatus.OK).body(loanDto);
 	}
 
-	@Operation(summary = "Update Account Details REST API", description = "REST API to update Customer & Account details based on a mobile number")
+	@Operation(summary = "Update Loan Details REST API", description = "REST API to update Loan details based on a mobile number")
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
 	@ApiResponse(responseCode = "417", description = "HTTP status EXPECTATION FAILED", content = @Content(schema = @Schema(implementation = ResponseDto.class)))
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@PutMapping("/update")
-	public ResponseEntity<ResponseDto> updateAccountDetails(@Valid @RequestBody CustomerDto customerDto) {
-		boolean isUpdated = accountService.updateAccount(customerDto);
+	public ResponseEntity<ResponseDto> updateAccountDetails(
+			@Valid @RequestBody LoanDto cardDto) {
+		boolean isUpdated = loanService.updateLoan(cardDto);
 		if (isUpdated) {
-			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
+			return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(
+					LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
 		}
-		return ResponseEntity
-				.status(HttpStatus.EXPECTATION_FAILED)
-				.body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_UPDATE));
+		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+				.body(new ResponseDto(LoansConstants.STATUS_417,
+						LoansConstants.MESSAGE_417_UPDATE));
 	}
 
-	@Operation(summary = "Delete Account Details REST API", description = "REST API to delete Customer & Account details based on a mobile number")
+	@Operation(summary = "Delete Loan Details REST API", description = "REST API to delete Loan details based on a mobile number")
 	@ApiResponse(responseCode = "200", description = "HTTP status OK")
 	@ApiResponse(responseCode = "417", description = "HTTP status EXPECTATION FAILED", content = @Content(schema = @Schema(implementation = ResponseDto.class)))
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@DeleteMapping("/delete")
-	public ResponseEntity<ResponseDto> deleteAccountDetails(@RequestParam @NotEmpty(message = "Account number cannot be null or empty") @Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits") String mobileNumber) {
-		boolean isDeleted = accountService.deleteAccount(mobileNumber);
+	public ResponseEntity<ResponseDto> deleteCardDetails(
+			@RequestParam @NotEmpty(message = "Account number cannot be null or empty") @Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits") String mobileNumber) {
+		boolean isDeleted = loanService.deleteLoan(mobileNumber);
 		if (isDeleted) {
-			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
+			return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(
+					LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
 		}
-		return ResponseEntity
-				.status(HttpStatus.EXPECTATION_FAILED)
-				.body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
+		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+				.body(new ResponseDto(LoansConstants.STATUS_417,
+						LoansConstants.MESSAGE_417_DELETE));
 	}
 
 	@Operation(summary = "Get build information", description = "Get build information that is deployed into accounts microservice")
@@ -118,15 +119,16 @@ public class AccountController {
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/java-version")
 	public ResponseEntity<String> getJavaVersion() {
-		return ResponseEntity.ok().body(environment.getProperty("JAVA_HOME", "unknown"));
+		return ResponseEntity.ok()
+				.body(environment.getProperty("JAVA_HOME", "unknown"));
 	}
 
 	@Operation(summary = "Get contact info", description = "Contact info details that can be reached out in case of any issues")
-	@ApiResponse(responseCode = "200", description = "HTTP status OK", content = @Content(schema = @Schema(implementation = AccountContactInfoDto.class)))
+	@ApiResponse(responseCode = "200", description = "HTTP status OK", content = @Content(schema = @Schema(implementation = LoanContactInfoDto.class)))
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/contact-info")
-	public ResponseEntity<AccountContactInfoDto> getConcactInfo() {
-		return ResponseEntity.ok().body(accountContactInfo);
+	public ResponseEntity<LoanContactInfoDto> getConcactInfo() {
+		return ResponseEntity.ok().body(loanContactInfo);
 	}
 }

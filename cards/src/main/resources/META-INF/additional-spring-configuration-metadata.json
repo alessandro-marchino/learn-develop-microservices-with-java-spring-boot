@@ -1,0 +1,11 @@
+{"properties": [
+  {
+    "name": "build.version",
+    "type": "java.lang.String",
+    "description": "ABuild version"
+  },
+  {
+    "name": "cards",
+    "type": "com.eazybytes.cards.dto.CardContactInfoDto"
+  }
+]}
