@@ -1,4 +1,4 @@
-pspring:
+spring:
   application:
     name: configserver
   profiles:
