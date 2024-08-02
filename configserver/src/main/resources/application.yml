@@ -8,6 +8,7 @@ spring:
     config:
       server:
         native:
-          search-locations: "classpath:/config"
+#          search-locations: "classpath:/config"
+          search-locations: "file://${HOME}/wsl_workspace/utility/udemy/learn-develop-microservices-with-java-spring-boot/config/"
 server:
   port: 8071
