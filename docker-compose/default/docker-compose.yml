@@ -11,8 +11,9 @@ services:
       timeout: 5s
       retries: 10
       start_period: 5s
-    networks:
-      - eazybank
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
   configserver:
     image: "marchino/configserver:s6"
     container_name: configserver_ms
@@ -22,17 +23,14 @@ services:
       rabbit:
         condition: service_healthy
     healthcheck:
-      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      test: "wget --no-verbose -q --tries=1 -O- localhost:8071/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 10s
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - eazybank
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
     environment:
       SPRING_PROFILES_ACTIVE: git
   accounts:
@@ -40,55 +38,31 @@ services:
     container_name: accounts_ms
     ports:
       - "8080:8080"
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - eazybank
-    environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
+#    environment:
 #      SPRING_APPLICATION_NAME: accounts
-    depends_on:
-      configserver:
-        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
   cards:
     image: "marchino/cards:s6"
     container_name: cards_ms
     ports:
       - "9000:9000"
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - eazybank
-    environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+#    environment:
 #      SPRING_APPLICATION_NAME: cards
-    depends_on:
-      configserver:
-        condition: service_healthy
   loans:
     image: "marchino/loans:s6"
     container_name: loans_ms
     ports:
       - "8090:8090"
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - eazybank
-    environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+#    environment:
 #      SPRING_APPLICATION_NAME: loans
-    depends_on:
-      configserver:
-        condition: service_healthy
 
 networks:
   eazybank:
