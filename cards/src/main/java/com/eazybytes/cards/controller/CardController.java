@@ -43,7 +43,7 @@ public class CardController {
 	private final Environment environment;
 	private final CardContactInfoDto cardContactInfo;
 
-	@Value("${build.version}")
+	@Value("${build.version:unknown}")
 	private String buildVersion;
 
 	@Operation(summary = "Create Card REST API", description = "REST API to create new Card inside EazyBank")

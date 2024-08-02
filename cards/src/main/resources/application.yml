@@ -1,6 +1,8 @@
 spring:
   application:
     name: cards
+  config:
+    import: "optional:configserver:http://localhost:8071/"
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -17,15 +19,3 @@ spring:
     show-sql: true
 server:
   port: 9000
-
-build:
-  version: "3.0"
-
-cards:
-  message: "Welcome to EazyBank cards related local APIs "
-  contact-details:
-    name: "Dragos Lech - Developer"
-    email: "dragos@eazybank.com"
-  on-call-support:
-    - (412) 419-3491
-    - (915) 382-1932

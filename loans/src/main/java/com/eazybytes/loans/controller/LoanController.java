@@ -43,7 +43,7 @@ public class LoanController {
 	private final Environment environment;
 	private final LoanContactInfoDto loanContactInfo;
 
-	@Value("${build.version}")
+	@Value("${build.version:unknown}")
 	private String buildVersion;
 
 	@Operation(summary = "Create Loan REST API", description = "REST API to create new Loan inside EazyBank")
