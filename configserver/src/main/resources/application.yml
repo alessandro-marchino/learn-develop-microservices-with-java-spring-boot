@@ -4,11 +4,20 @@ spring:
   profiles:
     active:
       - native
+#      - git
   cloud:
     config:
       server:
         native:
 #          search-locations: "classpath:/config"
           search-locations: "file://${HOME}/wsl_workspace/utility/udemy/learn-develop-microservices-with-java-spring-boot/config/"
+        git:
+          uri: https://github.com/alessandro-marchino/learn-develop-microservices-with-java-spring-boot.git
+          default-label: master
+          timeout: 5
+          clone-on-start: true
+          force-pull: true
+          search-paths:
+            - config
 server:
   port: 8071
