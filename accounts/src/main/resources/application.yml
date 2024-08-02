@@ -1,6 +1,8 @@
 spring:
   application:
     name: accounts
+  config:
+    import: "optional:configserver:http://localhost:8071/"
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -15,21 +17,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  config:
-    import:
-      - application-qa.yml
-      - application-prod.yml
 server:
   port: 8080
-
-build:
-  version: "3.0"
-
-accounts:
-  message: Welcome to EazyBank accounts related local APIs
-  contact-details:
-    name: "John Doe - Developer"
-    email: "john@eazybank.com"
-  on-call-support:
-    - (555) 555-1234
-    - (555) 523-1345

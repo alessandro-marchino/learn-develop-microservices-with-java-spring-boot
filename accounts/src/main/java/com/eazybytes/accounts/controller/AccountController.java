@@ -43,7 +43,7 @@ public class AccountController {
 	private final Environment environment;
 	private final AccountContactInfoDto accountContactInfo;
 
-	@Value("${build.version}")
+	@Value("${build.version:unknown}")
 	private String buildVersion;
 
 	@Operation(summary = "Create Account REST API", description = "REST API to create new Customer & Account inside EazyBank")
