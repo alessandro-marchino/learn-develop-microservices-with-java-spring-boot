@@ -19,5 +19,7 @@ spring:
           force-pull: true
           search-paths:
             - config
+encrypt:
+  key: 45D81EC1EF61DF9AD8D3E5BB3979
 server:
   port: 8071

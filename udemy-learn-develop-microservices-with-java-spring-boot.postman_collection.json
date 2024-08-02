@@ -106,6 +106,57 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Build info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostAccounts}}/build-info",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"build-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Java version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostAccounts}}/java-version",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"java-version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contact info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostAccounts}}/contact-info",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"contact-info"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -202,6 +253,114 @@
 									"key": "mobileNumber",
 									"value": "4354437687"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Build info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostCards}}/build-info",
+							"host": [
+								"{{hostCards}}"
+							],
+							"path": [
+								"build-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Java version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostCards}}/java-version",
+							"host": [
+								"{{hostCards}}"
+							],
+							"path": [
+								"java-version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contact info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostCards}}/contact-info",
+							"host": [
+								"{{hostCards}}"
+							],
+							"path": [
+								"contact-info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "configserver",
+			"item": [
+				{
+					"name": "encrypt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "aishwary@eazybank.com",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostConfigServer}}/encrypt",
+							"host": [
+								"{{hostConfigServer}}"
+							],
+							"path": [
+								"encrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "decrypt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "414b9155c3cb6735bf542cbbb2a2926b332ad3051071e51f7954811dd500b6e506b9eb26569d1e63247cca93ae895454",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostConfigServer}}/decrypt",
+							"host": [
+								"{{hostConfigServer}}"
+							],
+							"path": [
+								"decrypt"
 							]
 						}
 					},
@@ -306,6 +465,57 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Build info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostLoans}}/build-info",
+							"host": [
+								"{{hostLoans}}"
+							],
+							"path": [
+								"build-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Java version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostLoans}}/java-version",
+							"host": [
+								"{{hostLoans}}"
+							],
+							"path": [
+								"java-version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contact info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostLoans}}/contact-info",
+							"host": [
+								"{{hostLoans}}"
+							],
+							"path": [
+								"contact-info"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -346,6 +556,11 @@
 		{
 			"key": "hostCards",
 			"value": "localhost:9000/api",
+			"type": "string"
+		},
+		{
+			"key": "hostConfigServer",
+			"value": "localhost:8071",
 			"type": "string"
 		}
 	]
