@@ -10,6 +10,65 @@
 			"name": "accounts",
 			"item": [
 				{
+					"name": "actuator",
+					"item": [
+						{
+							"name": "Refresh",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{hostAccounts}}/actuator/refresh",
+									"host": [
+										"{{hostAccounts}}"
+									],
+									"path": [
+										"actuator",
+										"refresh"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "BusRefresh",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{hostAccounts}}/actuator/busrefresh",
+									"host": [
+										"{{hostAccounts}}"
+									],
+									"path": [
+										"actuator",
+										"busrefresh"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Shutdown",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{hostAccounts}}/actuator/shutdown",
+									"host": [
+										"{{hostAccounts}}"
+									],
+									"path": [
+										"actuator",
+										"shutdown"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Create account",
 					"request": {
 						"method": "POST",
@@ -24,11 +83,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostAccounts}}/create",
+							"raw": "{{hostAccounts}}/api/create",
 							"host": [
 								"{{hostAccounts}}"
 							],
 							"path": [
+								"api",
 								"create"
 							]
 						}
@@ -42,7 +102,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Madan Reddy1\",\r\n    \"email\": \"tutor@eazybytes.com\",\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"accountDto\": {\r\n        \"accountNumber\": 34809077239,\r\n        \"accountType\": \"Savings\",\r\n        \"branchAddress\": \"14 Main Street, New York\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"Madan Reddy1\",\r\n    \"email\": \"tutor@eazybytes.com\",\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"accountDto\": {\r\n        \"accountNumber\": 350383807,\r\n        \"accountType\": \"Savings\",\r\n        \"branchAddress\": \"14 Main Street, New York\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -50,11 +110,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostAccounts}}/update",
+							"raw": "{{hostAccounts}}/api/update",
 							"host": [
 								"{{hostAccounts}}"
 							],
 							"path": [
+								"api",
 								"update"
 							]
 						}
@@ -67,11 +128,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostAccounts}}/fetch?mobileNumber=4354437687",
+							"raw": "{{hostAccounts}}/api/fetch?mobileNumber=4354437687",
 							"host": [
 								"{{hostAccounts}}"
 							],
 							"path": [
+								"api",
 								"fetch"
 							],
 							"query": [
@@ -90,11 +152,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{hostAccounts}}/delete?mobileNumber=4354437687",
+							"raw": "{{hostAccounts}}/api/delete?mobileNumber=4354437687",
 							"host": [
 								"{{hostAccounts}}"
 							],
 							"path": [
+								"api",
 								"delete"
 							],
 							"query": [
@@ -113,11 +176,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostAccounts}}/build-info",
+							"raw": "{{hostAccounts}}/api/build-info",
 							"host": [
 								"{{hostAccounts}}"
 							],
 							"path": [
+								"api",
 								"build-info"
 							]
 						}
@@ -130,11 +194,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostAccounts}}/java-version",
+							"raw": "{{hostAccounts}}/api/java-version",
 							"host": [
 								"{{hostAccounts}}"
 							],
 							"path": [
+								"api",
 								"java-version"
 							]
 						}
@@ -147,11 +212,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostAccounts}}/contact-info",
+							"raw": "{{hostAccounts}}/api/contact-info",
 							"host": [
 								"{{hostAccounts}}"
 							],
 							"path": [
+								"api",
 								"contact-info"
 							]
 						}
@@ -164,16 +230,58 @@
 			"name": "cards",
 			"item": [
 				{
+					"name": "actuator",
+					"item": [
+						{
+							"name": "Refresh",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{hostCards}}/actuator/refresh",
+									"host": [
+										"{{hostCards}}"
+									],
+									"path": [
+										"actuator",
+										"refresh"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Shutdown",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{hostCards}}/actuator/shutdown",
+									"host": [
+										"{{hostCards}}"
+									],
+									"path": [
+										"actuator",
+										"shutdown"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Create card",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{hostCards}}/create?mobileNumber=4354437687",
+							"raw": "{{hostCards}}/api/create?mobileNumber=4354437687",
 							"host": [
 								"{{hostCards}}"
 							],
 							"path": [
+								"api",
 								"create"
 							],
 							"query": [
@@ -193,7 +301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"cardNumber\": \"100152752853\",\r\n    \"cardType\": \"Credit Card\",\r\n    \"totalLimit\": 1000000,\r\n    \"amountUsed\": 200000,\r\n    \"availableAmount\": 800000\r\n}",
+							"raw": "{\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"cardNumber\": \"100338120703\",\r\n    \"cardType\": \"Credit Card\",\r\n    \"totalLimit\": 1000000,\r\n    \"amountUsed\": 200000,\r\n    \"availableAmount\": 800000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -201,11 +309,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostCards}}/update",
+							"raw": "{{hostCards}}/api/update",
 							"host": [
 								"{{hostCards}}"
 							],
 							"path": [
+								"api",
 								"update"
 							]
 						}
@@ -218,11 +327,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostCards}}/fetch?mobileNumber=4354437687",
+							"raw": "{{hostCards}}/api/fetch?mobileNumber=4354437687",
 							"host": [
 								"{{hostCards}}"
 							],
 							"path": [
+								"api",
 								"fetch"
 							],
 							"query": [
@@ -241,11 +351,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{hostCards}}/delete?mobileNumber=4354437687",
+							"raw": "{{hostCards}}/api/delete?mobileNumber=4354437687",
 							"host": [
 								"{{hostCards}}"
 							],
 							"path": [
+								"api",
 								"delete"
 							],
 							"query": [
@@ -264,11 +375,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostCards}}/build-info",
+							"raw": "{{hostCards}}/api/build-info",
 							"host": [
 								"{{hostCards}}"
 							],
 							"path": [
+								"api",
 								"build-info"
 							]
 						}
@@ -281,11 +393,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostCards}}/java-version",
+							"raw": "{{hostCards}}/api/java-version",
 							"host": [
 								"{{hostCards}}"
 							],
 							"path": [
+								"api",
 								"java-version"
 							]
 						}
@@ -298,11 +411,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostCards}}/contact-info",
+							"raw": "{{hostCards}}/api/contact-info",
 							"host": [
 								"{{hostCards}}"
 							],
 							"path": [
+								"api",
 								"contact-info"
 							]
 						}
@@ -314,6 +428,34 @@
 		{
 			"name": "configserver",
 			"item": [
+				{
+					"name": "{account}/{profiles}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostConfigServer}}/:application/:profiles",
+							"host": [
+								"{{hostConfigServer}}"
+							],
+							"path": [
+								":application",
+								":profiles"
+							],
+							"variable": [
+								{
+									"key": "application",
+									"value": "cards"
+								},
+								{
+									"key": "profiles",
+									"value": "prod"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "encrypt",
 					"request": {
@@ -369,19 +511,121 @@
 			]
 		},
 		{
+			"name": "eurekaserver",
+			"item": [
+				{
+					"name": "eureka/apps",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hostEurekaServer}}/eureka/apps",
+							"host": [
+								"{{hostEurekaServer}}"
+							],
+							"path": [
+								"eureka",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eureka/apps/{appName}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hostEurekaServer}}/eureka/apps/:appName",
+							"host": [
+								"{{hostEurekaServer}}"
+							],
+							"path": [
+								"eureka",
+								"apps",
+								":appName"
+							],
+							"variable": [
+								{
+									"key": "appName",
+									"value": "accounts"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "loans",
 			"item": [
+				{
+					"name": "actuator",
+					"item": [
+						{
+							"name": "Refresh",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{hostLoans}}/actuator/refresh",
+									"host": [
+										"{{hostLoans}}"
+									],
+									"path": [
+										"actuator",
+										"refresh"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Shutdown",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{hostLoans}}/actuator/shutdown",
+									"host": [
+										"{{hostLoans}}"
+									],
+									"path": [
+										"actuator",
+										"shutdown"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "Create loan",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{hostLoans}}/create?mobileNumber=4354437687",
+							"raw": "{{hostLoans}}/api/create?mobileNumber=4354437687",
 							"host": [
 								"{{hostLoans}}"
 							],
 							"path": [
+								"api",
 								"create"
 							],
 							"query": [
@@ -401,7 +645,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"loanNumber\": \"100065333456\",\r\n    \"loanType\": \"Home Loan\",\r\n    \"totalLoan\": 1000000,\r\n    \"amountPaid\": 100000,\r\n    \"outstandingAmount\": 900000\r\n}",
+							"raw": "{\r\n    \"mobileNumber\": \"4354437687\",\r\n    \"loanNumber\": \"100726425782\",\r\n    \"loanType\": \"Home Loan\",\r\n    \"totalLoan\": 1000000,\r\n    \"amountPaid\": 100000,\r\n    \"outstandingAmount\": 900000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -409,11 +653,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostLoans}}/update",
+							"raw": "{{hostLoans}}/api/update",
 							"host": [
 								"{{hostLoans}}"
 							],
 							"path": [
+								"api",
 								"update"
 							]
 						}
@@ -426,11 +671,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostLoans}}/fetch?mobileNumber=4354437687",
+							"raw": "{{hostLoans}}/api/fetch?mobileNumber=4354437687",
 							"host": [
 								"{{hostLoans}}"
 							],
 							"path": [
+								"api",
 								"fetch"
 							],
 							"query": [
@@ -449,11 +695,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{hostLoans}}/delete?mobileNumber=4354437687",
+							"raw": "{{hostLoans}}/api/delete?mobileNumber=4354437687",
 							"host": [
 								"{{hostLoans}}"
 							],
 							"path": [
+								"api",
 								"delete"
 							],
 							"query": [
@@ -472,11 +719,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostLoans}}/build-info",
+							"raw": "{{hostLoans}}/api/build-info",
 							"host": [
 								"{{hostLoans}}"
 							],
 							"path": [
+								"api",
 								"build-info"
 							]
 						}
@@ -489,11 +737,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostLoans}}/java-version",
+							"raw": "{{hostLoans}}/api/java-version",
 							"host": [
 								"{{hostLoans}}"
 							],
 							"path": [
+								"api",
 								"java-version"
 							]
 						}
@@ -506,11 +755,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{hostLoans}}/contact-info",
+							"raw": "{{hostLoans}}/api/contact-info",
 							"host": [
 								"{{hostLoans}}"
 							],
 							"path": [
+								"api",
 								"contact-info"
 							]
 						}
@@ -545,22 +795,27 @@
 	"variable": [
 		{
 			"key": "hostAccounts",
-			"value": "localhost:8080/api",
+			"value": "localhost:8080",
 			"type": "string"
 		},
 		{
 			"key": "hostLoans",
-			"value": "localhost:8090/api",
+			"value": "localhost:8090",
 			"type": "string"
 		},
 		{
 			"key": "hostCards",
-			"value": "localhost:9000/api",
+			"value": "localhost:9000",
 			"type": "string"
 		},
 		{
 			"key": "hostConfigServer",
 			"value": "localhost:8071",
+			"type": "string"
+		},
+		{
+			"key": "hostEurekaServer",
+			"value": "localhost:8070",
 			"type": "string"
 		}
 	]
