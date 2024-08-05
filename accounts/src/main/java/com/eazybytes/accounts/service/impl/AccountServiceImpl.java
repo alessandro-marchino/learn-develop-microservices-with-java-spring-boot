@@ -28,6 +28,7 @@ public class AccountServiceImpl implements IAccountService {
 	private final AccountRepository accountRepository;
 
 	@Override
+	@Transactional
 	public void createAccount(CustomerDto customerDto) {
 		Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDto.getMobileNumber());
 		optionalCustomer.ifPresent(c -> {
@@ -83,7 +84,7 @@ public class AccountServiceImpl implements IAccountService {
 	private Account createNewAccount(Customer customer) {
 		Account account = new Account();
 		account.setCustomerId(customer.getCustomerId());
-		Long randomAccNumber = new Random().nextLong(10000000000L, 99999999999L);
+		Long randomAccNumber = new Random().nextLong(100000000L, 999999999L);
 		account.setAccountNumber(randomAccNumber);
 		account.setAccountType(AccountsConstants.SAVINGS);
 		account.setBranchAddress(AccountsConstants.ADDRESS);
