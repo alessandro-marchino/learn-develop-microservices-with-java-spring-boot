@@ -19,7 +19,6 @@ services:
       service: network-deploy-service
     environment:
       SPRING_PROFILES_ACTIVE: default
-      SPRING_RABBITMQ_HOST: rabbit
     deploy:
       resources:
         limits:
