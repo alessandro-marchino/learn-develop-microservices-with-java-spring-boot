@@ -147,6 +147,30 @@
 					"response": []
 				},
 				{
+					"name": "Fetch customer detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostAccounts}}/api/fetchCustomerDetails?mobileNumber=4354437687",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"api",
+								"fetchCustomerDetails"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "4354437687"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete account",
 					"request": {
 						"method": "DELETE",
