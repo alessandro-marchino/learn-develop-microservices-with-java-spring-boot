@@ -12,5 +12,5 @@ import com.eazybytes.accounts.dto.CardDto;
 public interface CardsFeignClient {
 
 	@GetMapping(value = "/api/fetch", consumes = MediaType.APPLICATION_JSON_VALUE)
-	ResponseEntity<CardDto> fetchCardDetails(@RequestParam String mobileNumbe);
+	ResponseEntity<CardDto> fetchCardDetails(@RequestParam String mobileNumber);
 }
