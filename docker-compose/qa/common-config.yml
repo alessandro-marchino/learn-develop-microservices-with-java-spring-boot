@@ -33,3 +33,11 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
+  microservice-eureka-config:
+    extends:
+      service: microservice-configserver-config
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+    depends_on:
+      eurekaserver:
+        condition: service_healthy

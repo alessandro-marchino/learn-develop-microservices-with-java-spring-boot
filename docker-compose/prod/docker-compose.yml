@@ -48,8 +48,28 @@ services:
       service: microservice-base-config
     environment:
       SPRING_PROFILES_ACTIVE: git
+  eurekaserver:
+    image: "marchino/eurekaserver:s8"
+    container_name: eurekaserver_ms
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "wget --no-verbose -q --tries=1 -O- localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+    environment:
+      SPRING_PROFILES_ACTIVE: git
+      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+    depends_on:
+      configserver:
+        condition: service_healthy
   accounts:
-    image: "marchino/accounts:s7"
+    image: "marchino/accounts:s8"
     container_name: accounts_ms
     ports:
       - "8080:8080"
@@ -57,31 +77,31 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://accountsdb:3306/accountsdb
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
     depends_on:
       accountsdb:
         condition: service_healthy
   cards:
-    image: "marchino/cards:s7"
+    image: "marchino/cards:s8"
     container_name: cards_ms
     ports:
       - "9000:9000"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://cardsdb:3306/cardsdb
     depends_on:
       cardsdb:
         condition: service_healthy
   loans:
-    image: "marchino/loans:s7"
+    image: "marchino/loans:s8"
     container_name: loans_ms
     ports:
       - "8090:8090"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://loansdb:3306/loansdb
     depends_on:
