@@ -40,3 +40,7 @@ info:
     name: cards
     description: Eazy Bank cards application
     version: v1.0.0
+
+logging:
+  level:
+    '[com.eazybytes.cards]': debug
