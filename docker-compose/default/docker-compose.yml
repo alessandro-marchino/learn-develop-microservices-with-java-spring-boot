@@ -69,10 +69,14 @@ services:
       configserver:
         condition: service_healthy
   accounts:
-    image: "marchino/accounts:s8"
+    image: "marchino/accounts:s9"
     container_name: accounts_ms
-    ports:
-      - "8080:8080"
+    healthcheck:
+      test: "wget --no-verbose -q --tries=1 -O- localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://accountsdb:3306/accountsdb
     extends:
@@ -82,10 +86,14 @@ services:
       accountsdb:
         condition: service_healthy
   cards:
-    image: "marchino/cards:s8"
+    image: "marchino/cards:s9"
     container_name: cards_ms
-    ports:
-      - "9000:9000"
+    healthcheck:
+      test: "wget --no-verbose -q --tries=1 -O- localhost:9000/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-eureka-config
@@ -95,10 +103,14 @@ services:
       cardsdb:
         condition: service_healthy
   loans:
-    image: "marchino/loans:s8"
+    image: "marchino/loans:s9"
     container_name: loans_ms
-    ports:
-      - "8090:8090"
+    healthcheck:
+      test: "wget --no-verbose -q --tries=1 -O- localhost:8090/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-eureka-config
@@ -106,6 +118,21 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://loansdb:3306/loansdb
     depends_on:
       loansdb:
+        condition: service_healthy
+  gatewayserver:
+    image: "marchino/gatewayserver:s9"
+    container_name: gatewayserver_ms
+    ports:
+      - "8072:8072"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+    depends_on:
+      accounts:
+        condition: service_healthy
+      cards:
+        condition: service_healthy
+      loans:
         condition: service_healthy
 
 networks:
