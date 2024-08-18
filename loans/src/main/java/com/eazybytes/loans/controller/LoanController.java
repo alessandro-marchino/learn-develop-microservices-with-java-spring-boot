@@ -133,7 +133,8 @@ public class LoanController {
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/contact-info")
-	public ResponseEntity<LoanContactInfoDto> getConcactInfo() {
+	public ResponseEntity<LoanContactInfoDto> getContactInfo() {
+		log.debug("Invoked Loans contact-info API");
 		return ResponseEntity.ok().body(loanContactInfo);
 	}
 }
