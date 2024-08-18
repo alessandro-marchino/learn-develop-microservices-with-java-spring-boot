@@ -126,7 +126,7 @@ public class AccountController {
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/contact-info")
-	public ResponseEntity<AccountContactInfoDto> getConcactInfo() {
+	public ResponseEntity<AccountContactInfoDto> getContactInfo() {
 		return ResponseEntity.ok().body(accountContactInfo);
 	}
 }
