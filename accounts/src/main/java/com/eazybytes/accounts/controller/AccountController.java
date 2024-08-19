@@ -22,6 +22,7 @@ import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.service.IAccountService;
 
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,12 +32,14 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "CRUD REST APIs for Accounts in EazyBank", description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH and DELETE account details")
+@Slf4j
 public class AccountController {
 
 	private final IAccountService accountService;
@@ -108,8 +111,16 @@ public class AccountController {
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/build-info")
+	@Retry(name="getBuildInfo", fallbackMethod = "getBuildInfoFallback")
 	public ResponseEntity<String> getBuildInfo() {
+		log.debug("getBuildInfo() method invoked");
+		if(true) throw new RuntimeException("Test");
 		return ResponseEntity.ok().body(buildVersion);
+	}
+
+	public ResponseEntity<String> getBuildInfoFallback(Throwable throwable) {
+		log.debug("getBuildInfoFallback() method invoked. Exception: {}", throwable.getMessage());
+		return ResponseEntity.ok().body("0.9");
 	}
 
 	@Operation(summary = "Get java version", description = "Get java version details that is deployed into accounts microservice")
