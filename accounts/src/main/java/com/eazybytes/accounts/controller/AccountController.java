@@ -1,5 +1,7 @@
 package com.eazybytes.accounts.controller;
 
+import java.util.concurrent.TimeoutException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -112,9 +114,8 @@ public class AccountController {
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/build-info")
 	@Retry(name="getBuildInfo", fallbackMethod = "getBuildInfoFallback")
-	public ResponseEntity<String> getBuildInfo() {
+	public ResponseEntity<String> getBuildInfo() throws TimeoutException {
 		log.debug("getBuildInfo() method invoked");
-		if(true) throw new RuntimeException("Test");
 		return ResponseEntity.ok().body(buildVersion);
 	}
 
