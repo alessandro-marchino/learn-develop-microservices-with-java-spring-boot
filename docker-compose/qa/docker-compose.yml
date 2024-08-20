@@ -32,6 +32,20 @@ services:
       service: microservice-db-config
     volumes:
       - cardsdb-data-qa:/var/lib/mysql
+  redis:
+    container_name: redis
+    image: "redis:7.4-alpine"
+    healthcheck:
+      test: "redis-cli ping"
+      interval: 2s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
+    ports:
+      - "6379:6379"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
   configserver:
     image: "marchino/configserver:s6"
     container_name: configserver_ms
@@ -133,6 +147,8 @@ services:
       cards:
         condition: service_healthy
       loans:
+        condition: service_healthy
+      redis:
         condition: service_healthy
 
 networks:
