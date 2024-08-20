@@ -83,7 +83,7 @@ services:
       configserver:
         condition: service_healthy
   accounts:
-    image: "marchino/accounts:s10"
+    image: "marchino/accounts:s11"
     container_name: accounts_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8080/actuator/health/readiness | grep UP || exit 1"
@@ -100,7 +100,7 @@ services:
       accountsdb:
         condition: service_healthy
   cards:
-    image: "marchino/cards:s10"
+    image: "marchino/cards:s11"
     container_name: cards_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:9000/actuator/health/readiness | grep UP || exit 1"
@@ -117,7 +117,7 @@ services:
       cardsdb:
         condition: service_healthy
   loans:
-    image: "marchino/loans:s10"
+    image: "marchino/loans:s11"
     container_name: loans_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8090/actuator/health/readiness | grep UP || exit 1"
@@ -134,7 +134,7 @@ services:
       loansdb:
         condition: service_healthy
   gatewayserver:
-    image: "marchino/gatewayserver:s10"
+    image: "marchino/gatewayserver:s11"
     container_name: gatewayserver_ms
     ports:
       - "8072:8072"
