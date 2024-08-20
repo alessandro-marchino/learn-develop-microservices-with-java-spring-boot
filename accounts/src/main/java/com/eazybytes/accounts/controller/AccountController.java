@@ -24,6 +24,7 @@ import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.service.IAccountService;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -129,8 +130,13 @@ public class AccountController {
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/java-version")
+	@RateLimiter(name = "getJavaVersion", fallbackMethod = "getJavaVersionFallback")
 	public ResponseEntity<String> getJavaVersion() {
 		return ResponseEntity.ok().body(environment.getProperty("JAVA_HOME", "unknown"));
+	}
+
+	public ResponseEntity<String> getJavaVersionFallback(Throwable throwable) {
+		return ResponseEntity.ok().body("Java 17");
 	}
 
 	@Operation(summary = "Get contact info", description = "Contact info details that can be reached out in case of any issues")
