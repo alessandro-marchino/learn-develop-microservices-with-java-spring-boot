@@ -101,6 +101,16 @@ services:
     extends:
       file: common-config.yml
       service: network-deploy-service
+  prometheus:
+    image: prom/prometheus:v2.50.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
   backend:
     image: grafana/loki:3.0.0
     volumes:
@@ -232,7 +242,7 @@ services:
       file: common-config.yml
       service: network-deploy-service
   configserver:
-    image: "marchino/configserver:s6"
+    image: "marchino/configserver:s11"
     container_name: configserver_ms
     ports:
       - "8071:8071"
@@ -248,7 +258,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: git
   eurekaserver:
-    image: "marchino/eurekaserver:s8"
+    image: "marchino/eurekaserver:s11"
     container_name: eurekaserver_ms
     ports:
       - "8070:8070"
