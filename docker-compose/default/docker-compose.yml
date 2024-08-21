@@ -101,6 +101,19 @@ services:
     extends:
       file: common-config.yml
       service: network-deploy-service
+  backend:
+    image: grafana/loki:3.0.0
+    volumes:
+      - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
+    ports:
+      - "3100"
+      - "7946"
+    command: "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
+    depends_on:
+      - gateway
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
   gateway:
     image: nginx:1.25.5
     depends_on:
