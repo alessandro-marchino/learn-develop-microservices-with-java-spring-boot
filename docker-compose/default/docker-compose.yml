@@ -2,10 +2,10 @@ services:
   read:
     image: grafana/loki:3.0.0
     command: "-config.file=/etc/loki/config.yaml -target=read"
-    ports:
-      - 3101:3100
-      - 7946
-      - 9095
+    # ports:
+    #   - 3101:3100
+    #   - 7946
+    #   - 9095
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
     depends_on:
@@ -22,10 +22,10 @@ services:
   write:
     image: grafana/loki:3.0.0
     command: "-config.file=/etc/loki/config.yaml -target=write"
-    ports:
-      - 3102:3100
-      - 7946
-      - 9095
+    # ports:
+    #   - 3102:3100
+    #   - 7946
+    #   - 9095
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
     healthcheck:
@@ -43,10 +43,22 @@ services:
       - ../observability/alloy/alloy-local-config.yaml:/etc/alloy/config.alloy:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
-    ports:
-      - 12345:12345
+    # ports:
+    #   - 12345:12345
     depends_on:
       - gateway
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+  tempo:
+    image: grafana/tempo:2.4.2
+    container_name: tempo
+    command: -config.file /etc/tempo-config.yml
+    ports:
+      - "3110:3100"
+      - "4317:4317"
+    volumes:
+      - ../observability/tempo/tempo.yml:/etc/tempo-config.yml
     extends:
       file: common-config.yml
       service: network-deploy-service
@@ -58,11 +70,11 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     depends_on:
       - gateway
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        /run.sh
+    # entrypoint:
+    #   - sh
+    #   - -euc
+    #   - |
+    #     /run.sh
     ports:
       - "3000:3000"
     volumes:
@@ -89,8 +101,8 @@ services:
       - MINIO_ROOT_PASSWORD=supersecret
       - MINIO_PROMETHEUS_AUTH_TYPE=public
       - MINIO_UPDATE=off
-    ports:
-      - 9000
+    # ports:
+    #   - 9000
     volumes:
       - ./.data/minio:/data
     healthcheck:
@@ -115,9 +127,9 @@ services:
     image: grafana/loki:3.0.0
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
-    ports:
-      - "3100"
-      - "7946"
+    # ports:
+    #   - "3100"
+    #   - "7946"
     command: "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
     depends_on:
       - gateway
@@ -183,8 +195,8 @@ services:
         }
         EOF
         /docker-entrypoint.sh nginx -g "daemon off;"
-    ports:
-      - "3100:3100"
+    # ports:
+    #   - "3100:3100"
     healthcheck:
       test: [ "CMD", "service", "nginx", "status" ]
       interval: 10s
@@ -248,15 +260,16 @@ services:
       - "8071:8071"
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8071/actuator/health/readiness | grep UP || exit 1"
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-base-config
     environment:
       SPRING_PROFILES_ACTIVE: git
+      OTEL_SERVICE_NAME: configserver
   eurekaserver:
     image: "marchino/eurekaserver:s11"
     container_name: eurekaserver_ms
@@ -264,9 +277,9 @@ services:
       - "8070:8070"
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8070/actuator/health/readiness | grep UP || exit 1"
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     extends:
       file: common-config.yml
@@ -274,6 +287,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: git
       SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
+      OTEL_SERVICE_NAME: eurekaserver
     depends_on:
       configserver:
         condition: service_healthy
@@ -282,12 +296,13 @@ services:
     container_name: accounts_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8080/actuator/health/readiness | grep UP || exit 1"
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://accountsdb:3306/accountsdb
+      OTEL_SERVICE_NAME: accounts
     extends:
       file: common-config.yml
       service: microservice-eureka-config
@@ -299,15 +314,16 @@ services:
     container_name: cards_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:9000/actuator/health/readiness | grep UP || exit 1"
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-eureka-config
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://cardsdb:3306/cardsdb
+      OTEL_SERVICE_NAME: cards
     depends_on:
       cardsdb:
         condition: service_healthy
@@ -316,15 +332,16 @@ services:
     container_name: loans_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8090/actuator/health/readiness | grep UP || exit 1"
-      interval: 10s
+      interval: 20s
       timeout: 5s
-      retries: 10
+      retries: 20
       start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-eureka-config
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://loansdb:3306/loansdb
+      OTEL_SERVICE_NAME: loans
     depends_on:
       loansdb:
         condition: service_healthy
@@ -338,6 +355,7 @@ services:
       service: microservice-eureka-config
     environment:
       SPRING_DATA_REDIS_HOST: redis
+      OTEL_SERVICE_NAME: gatewayserver
     depends_on:
       accounts:
         condition: service_healthy
