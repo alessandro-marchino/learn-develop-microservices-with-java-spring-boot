@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source $HOME/.sdkman/bin/sdkman-init.sh
+
+sdk use java 21.0.3-tem
+
+pushd accounts ; mvn clean compile jib:dockerBuild ; popd
+pushd cards ; mvn clean compile jib:dockerBuild ; popd
+pushd configserver ; mvn clean compile jib:dockerBuild ; popd
+pushd eurekaserver ; mvn clean compile jib:dockerBuild ; popd
+pushd gatewayserver ; mvn clean compile jib:dockerBuild ; popd
+pushd loans ; mvn clean compile jib:dockerBuild ; popd
