@@ -42,8 +42,9 @@ public class CustomerController {
 	public ResponseEntity<CustomerDetailDto> fetchCustomerDetails(
 			@RequestHeader("eazybank-correlation-id") String correlazionId,
 			@RequestParam @NotEmpty(message = "Account number cannot be null or empty") @Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits") String mobileNumber) {
-		log.debug("EazyBank-correlation-id found: {}", correlazionId);
+		log.debug("fetchCustomerDetails method start");
 		CustomerDetailDto customerDetailDto = customerService.fetchCustomerDetail(mobileNumber, correlazionId);
+		log.debug("fetchCustomerDetails method end");
 		return ResponseEntity.status(HttpStatus.OK).body(customerDetailDto);
 	}
 

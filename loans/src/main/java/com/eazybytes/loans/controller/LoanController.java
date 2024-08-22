@@ -53,11 +53,12 @@ public class LoanController {
 	@ApiResponse(responseCode = "201", description = "HTTP status CREATED")
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@PostMapping("/create")
-	public ResponseEntity<ResponseDto> createCard(
+	public ResponseEntity<ResponseDto> createLoan(
 			@Valid @RequestParam @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits") String mobileNumber) {
 		loanService.createLoan(mobileNumber);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto(
-				LoansConstants.STATUS_201, LoansConstants.MESSAGE_201));
+		return ResponseEntity
+				.status(HttpStatus.CREATED)
+				.body(new ResponseDto(LoansConstants.STATUS_201, LoansConstants.MESSAGE_201));
 	}
 
 	@Operation(summary = "Fetch Loan Details REST API", description = "REST API to fetch Loan details based on a mobile number")
@@ -65,11 +66,12 @@ public class LoanController {
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/fetch")
-	public ResponseEntity<LoanDto> fetchCardDetails(
+	public ResponseEntity<LoanDto> fetchLoanDetails(
 			@RequestHeader("eazybank-correlation-id") String correlazionId,
 			@RequestParam @NotEmpty(message = "Account number cannot be null or empty") @Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits") String mobileNumber) {
-		log.debug("EazyBank-correlation-id found: {}", correlazionId);
+		log.debug("fetchLoanDetails method start");
 		LoanDto loanDto = loanService.fetchLoan(mobileNumber);
+		log.debug("fetchLoanDetails method end");
 		return ResponseEntity.status(HttpStatus.OK).body(loanDto);
 	}
 
@@ -80,15 +82,16 @@ public class LoanController {
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@PutMapping("/update")
 	public ResponseEntity<ResponseDto> updateAccountDetails(
-			@Valid @RequestBody LoanDto cardDto) {
-		boolean isUpdated = loanService.updateLoan(cardDto);
+			@Valid @RequestBody LoanDto LoanDto) {
+		boolean isUpdated = loanService.updateLoan(LoanDto);
 		if (isUpdated) {
-			return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(
-					LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(new ResponseDto(LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
 		}
-		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
-				.body(new ResponseDto(LoansConstants.STATUS_417,
-						LoansConstants.MESSAGE_417_UPDATE));
+		return ResponseEntity
+				.status(HttpStatus.EXPECTATION_FAILED)
+				.body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_UPDATE));
 	}
 
 	@Operation(summary = "Delete Loan Details REST API", description = "REST API to delete Loan details based on a mobile number")
@@ -97,16 +100,17 @@ public class LoanController {
 	@ApiResponse(responseCode = "400", description = "HTTP status BAD REQUEST", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@DeleteMapping("/delete")
-	public ResponseEntity<ResponseDto> deleteCardDetails(
+	public ResponseEntity<ResponseDto> deleteLoanDetails(
 			@RequestParam @NotEmpty(message = "Account number cannot be null or empty") @Pattern(regexp = "^$|[0-9]{10}", message = "Account number must be 10 digits") String mobileNumber) {
 		boolean isDeleted = loanService.deleteLoan(mobileNumber);
 		if (isDeleted) {
-			return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(
-					LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(new ResponseDto(LoansConstants.STATUS_200, LoansConstants.MESSAGE_200));
 		}
-		return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
-				.body(new ResponseDto(LoansConstants.STATUS_417,
-						LoansConstants.MESSAGE_417_DELETE));
+		return ResponseEntity
+				.status(HttpStatus.EXPECTATION_FAILED)
+				.body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
 	}
 
 	@Operation(summary = "Get build information", description = "Get build information that is deployed into accounts microservice")
@@ -124,8 +128,7 @@ public class LoanController {
 	@ApiResponse(responseCode = "500", description = "HTTP status INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = ErrorResponseDto.class)))
 	@GetMapping("/java-version")
 	public ResponseEntity<String> getJavaVersion() {
-		return ResponseEntity.ok()
-				.body(environment.getProperty("JAVA_HOME", "unknown"));
+		return ResponseEntity.ok().body(environment.getProperty("JAVA_HOME", "unknown"));
 	}
 
 	@Operation(summary = "Get contact info", description = "Contact info details that can be reached out in case of any issues")
