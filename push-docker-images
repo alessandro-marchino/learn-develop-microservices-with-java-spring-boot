@@ -1,0 +1,10 @@
+#!/bin/bash
+
+VERSION=s12
+
+docker push "marchino/accounts:$VERSION"
+docker push "marchino/cards:$VERSION"
+docker push "marchino/configserver:$VERSION"
+docker push "marchino/eurekaserver:$VERSION"
+docker push "marchino/gatewayserver:$VERSION"
+docker push "marchino/loans:$VERSION"
