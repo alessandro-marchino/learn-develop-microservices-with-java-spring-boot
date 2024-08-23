@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "819993cb-c254-4c89-8d0a-af914997fcc0",
+		"_postman_id": "56e9bb63-0fef-4939-914b-fb7daa1a2875",
 		"name": "udemy/learn-develop-microservices-with-java-spring-boot",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29911340"
+		"_exporter_id": "13687650"
 	},
 	"item": [
 		{
@@ -792,8 +792,104 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "keycloak",
+			"item": [
+				{
+					"name": "ClientCredentials_AccessToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "eazybank-callcenter-cc",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid email profile",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{hostKeycloak}}/realms/master/protocol/openid-connect/token",
+							"host": [
+								"{{hostKeycloak}}"
+							],
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientSecret",
+				"value": "{{client_secret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{client_id}}",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid email profile",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{hostKeycloak}}/realms/master/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "clientcredentials_accesstoken",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -840,6 +936,26 @@
 		{
 			"key": "hostEurekaServer",
 			"value": "localhost:8070",
+			"type": "string"
+		},
+		{
+			"key": "hostGatewayServer",
+			"value": "localhost:8072",
+			"type": "string"
+		},
+		{
+			"key": "hostKeycloak",
+			"value": "localhost:7080",
+			"type": "string"
+		},
+		{
+			"key": "client_secret",
+			"value": "X6TSfesItNGL1BGTcI6i2huKQuubUItE",
+			"type": "string"
+		},
+		{
+			"key": "client_id",
+			"value": "eazybank-callcenter-cc",
 			"type": "string"
 		}
 	]

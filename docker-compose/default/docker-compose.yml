@@ -84,7 +84,7 @@ services:
       - MINIO_PROMETHEUS_AUTH_TYPE=public
       - MINIO_UPDATE=off
     volumes:
-      - ./.data/minio:/data
+      - minio-data:/data
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
       interval: 15s
@@ -192,6 +192,8 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+    volumes:
+      - keycloak-data:/opt/keycloak/data/
 
   accountsdb:
     container_name: accountsdb
@@ -361,3 +363,5 @@ volumes:
   accountsdb-data:
   loansdb-data:
   cardsdb-data:
+  keycloak-data:
+  minio-data:
