@@ -2,10 +2,6 @@ services:
   read:
     image: grafana/loki:3.0.0
     command: "-config.file=/etc/loki/config.yaml -target=read"
-    # ports:
-    #   - 3101:3100
-    #   - 7946
-    #   - 9095
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
     depends_on:
@@ -22,10 +18,6 @@ services:
   write:
     image: grafana/loki:3.0.0
     command: "-config.file=/etc/loki/config.yaml -target=write"
-    # ports:
-    #   - 3102:3100
-    #   - 7946
-    #   - 9095
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
     healthcheck:
@@ -43,8 +35,6 @@ services:
       - ../observability/alloy/alloy-local-config.yaml:/etc/alloy/config.alloy:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
-    # ports:
-    #   - 12345:12345
     depends_on:
       - gateway
     extends:
@@ -54,9 +44,6 @@ services:
     image: grafana/tempo:2.4.2
     container_name: tempo
     command: -config.file /etc/tempo-config.yml
-    ports:
-      - "3110:3100"
-      - "4317:4317"
     volumes:
       - ../observability/tempo/tempo.yml:/etc/tempo-config.yml
     extends:
@@ -70,11 +57,6 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     depends_on:
       - gateway
-    # entrypoint:
-    #   - sh
-    #   - -euc
-    #   - |
-    #     /run.sh
     ports:
       - "3000:3000"
     volumes:
@@ -101,8 +83,6 @@ services:
       - MINIO_ROOT_PASSWORD=supersecret
       - MINIO_PROMETHEUS_AUTH_TYPE=public
       - MINIO_UPDATE=off
-    # ports:
-    #   - 9000
     volumes:
       - ./.data/minio:/data
     healthcheck:
@@ -127,9 +107,6 @@ services:
     image: grafana/loki:3.0.0
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
-    # ports:
-    #   - "3100"
-    #   - "7946"
     command: "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
     depends_on:
       - gateway
@@ -195,8 +172,6 @@ services:
         }
         EOF
         /docker-entrypoint.sh nginx -g "daemon off;"
-    # ports:
-    #   - "3100:3100"
     healthcheck:
       test: [ "CMD", "service", "nginx", "status" ]
       interval: 10s
@@ -266,7 +241,7 @@ services:
       file: common-config.yml
       service: network-deploy-service
   configserver:
-    image: "marchino/configserver:s11"
+    image: "marchino/configserver:s12"
     container_name: configserver_ms
     ports:
       - "8071:8071"
@@ -283,7 +258,7 @@ services:
       SPRING_PROFILES_ACTIVE: git
       OTEL_SERVICE_NAME: configserver
   eurekaserver:
-    image: "marchino/eurekaserver:s11"
+    image: "marchino/eurekaserver:s12"
     container_name: eurekaserver_ms
     ports:
       - "8070:8070"
@@ -304,7 +279,7 @@ services:
       configserver:
         condition: service_healthy
   accounts:
-    image: "marchino/accounts:s11"
+    image: "marchino/accounts:s12"
     container_name: accounts_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8080/actuator/health/readiness | grep UP || exit 1"
@@ -322,7 +297,7 @@ services:
       accountsdb:
         condition: service_healthy
   cards:
-    image: "marchino/cards:s11"
+    image: "marchino/cards:s12"
     container_name: cards_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:9000/actuator/health/readiness | grep UP || exit 1"
@@ -340,7 +315,7 @@ services:
       cardsdb:
         condition: service_healthy
   loans:
-    image: "marchino/loans:s11"
+    image: "marchino/loans:s12"
     container_name: loans_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8090/actuator/health/readiness | grep UP || exit 1"
@@ -358,7 +333,7 @@ services:
       loansdb:
         condition: service_healthy
   gatewayserver:
-    image: "marchino/gatewayserver:s11"
+    image: "marchino/gatewayserver:s12"
     container_name: gatewayserver_ms
     ports:
       - "8072:8072"
