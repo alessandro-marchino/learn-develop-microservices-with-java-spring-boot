@@ -345,6 +345,7 @@ services:
     environment:
       SPRING_DATA_REDIS_HOST: redis
       OTEL_SERVICE_NAME: gatewayserver
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: http://keycloak:8080/realms/master/protocol/openid-connect/certs
     depends_on:
       accounts:
         condition: service_healthy
