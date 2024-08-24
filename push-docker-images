@@ -8,3 +8,5 @@ docker push "marchino/configserver:$VERSION"
 docker push "marchino/eurekaserver:$VERSION"
 docker push "marchino/gatewayserver:$VERSION"
 docker push "marchino/loans:$VERSION"
+docker push "marchino/message:$VERSION"
+

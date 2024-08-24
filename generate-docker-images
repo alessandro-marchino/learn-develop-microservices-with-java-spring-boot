@@ -11,3 +11,5 @@ pushd "$SCRIPT_DIR/configserver" ; mvn clean compile jib:dockerBuild ; popd
 pushd "$SCRIPT_DIR/eurekaserver" ; mvn clean compile jib:dockerBuild ; popd
 pushd "$SCRIPT_DIR/gatewayserver" ; mvn clean compile jib:dockerBuild ; popd
 pushd "$SCRIPT_DIR/loans" ; mvn clean compile jib:dockerBuild ; popd
+pushd "$SCRIPT_DIR/message" ; mvn clean compile jib:dockerBuild ; popd
+
