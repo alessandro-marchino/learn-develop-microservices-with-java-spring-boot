@@ -125,6 +125,9 @@
 				{
 					"name": "Fetch account",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -149,6 +152,9 @@
 				{
 					"name": "Fetch customer detail",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -799,6 +805,9 @@
 				{
 					"name": "ClientCredentials_AccessToken",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -837,6 +846,166 @@
 								"protocol",
 								"openid-connect",
 								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accounts_POST_AuthCode",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret_ac}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id_ac}}",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "{{hostKeycloak}}/realms/master/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "{{hostKeycloak}}/realms/master/protocol/openid-connect/auth",
+									"type": "string"
+								},
+								{
+									"key": "state",
+									"value": "{{$guid}}",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid email profile",
+									"type": "string"
+								},
+								{
+									"key": "useBrowser",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "tokenName",
+									"value": "authcode_accesstoken",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Madan Reddy\",\r\n    \"email\": \"tutor@eazybytes.com\",\r\n    \"mobileNumber\": \"4354437687\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostAccounts}}/api/create",
+							"host": [
+								"{{hostAccounts}}"
+							],
+							"path": [
+								"api",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "message",
+			"item": [
+				{
+					"name": "email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountNumber\": 1234545454,\r\n    \"name\": \"Madan Reddy\",\r\n    \"email\": \"tutor@eazybytes.com\",\r\n    \"mobileNumber\": \"4354437687\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostMessage}}/email",
+							"host": [
+								"{{hostMessage}}"
+							],
+							"path": [
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountNumber\": 1234545454,\r\n    \"name\": \"Madan Reddy\",\r\n    \"email\": \"tutor@eazybytes.com\",\r\n    \"mobileNumber\": \"4354437687\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostMessage}}/sms",
+							"host": [
+								"{{hostMessage}}"
+							],
+							"path": [
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "email/sms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountNumber\": 1234545454,\r\n    \"name\": \"Madan Reddy\",\r\n    \"email\": \"tutor@eazybytes.com\",\r\n    \"mobileNumber\": \"4354437687\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostMessage}}/emailsms",
+							"host": [
+								"{{hostMessage}}"
+							],
+							"path": [
+								"emailsms"
 							]
 						}
 					},
@@ -949,6 +1118,11 @@
 			"type": "string"
 		},
 		{
+			"key": "hostMessage",
+			"value": "localhost:9010",
+			"type": "string"
+		},
+		{
 			"key": "client_secret",
 			"value": "X6TSfesItNGL1BGTcI6i2huKQuubUItE",
 			"type": "string"
@@ -956,6 +1130,16 @@
 		{
 			"key": "client_id",
 			"value": "eazybank-callcenter-cc",
+			"type": "string"
+		},
+		{
+			"key": "client_id_ac",
+			"value": "eazybank-callcenter-ac",
+			"type": "string"
+		},
+		{
+			"key": "client_secret_ac",
+			"value": "hx2p34l0yAOxOriEcrRxJfPOIyXKIUJR",
 			"type": "string"
 		}
 	]
