@@ -194,6 +194,15 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
     volumes:
       - keycloak-data-prod:/opt/keycloak/data/
+  rabbitmq:
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    image: "rabbitmq:3.13-management"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
 
   accountsdb:
     container_name: accountsdb
@@ -281,7 +290,7 @@ services:
       configserver:
         condition: service_healthy
   accounts:
-    image: "marchino/accounts:s12"
+    image: "marchino/accounts:s13"
     container_name: accounts_ms
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8080/actuator/health/readiness | grep UP || exit 1"
@@ -291,6 +300,7 @@ services:
       start_period: 10s
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://accountsdb:3306/accountsdb
+      SPRING_RABBITMQ_HOST: rabbitmq
       OTEL_SERVICE_NAME: accounts
     extends:
       file: common-config.yml
@@ -355,6 +365,15 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+  message:
+    image: "marchino/message:s13"
+    container_name: message_ms
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+    environment:
+      SPRING_RABBITMQ_HOST: rabbitmq
+      OTEL_SERVICE_NAME: gatewayserver
 
 networks:
   eazybank:
