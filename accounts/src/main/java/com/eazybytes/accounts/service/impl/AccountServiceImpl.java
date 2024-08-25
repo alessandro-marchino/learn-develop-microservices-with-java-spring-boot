@@ -3,10 +3,12 @@ package com.eazybytes.accounts.service.impl;
 import java.util.Optional;
 import java.util.Random;
 
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.AccountDto;
+import com.eazybytes.accounts.dto.AccountsMessageDto;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.entity.Account;
 import com.eazybytes.accounts.entity.Customer;
@@ -20,12 +22,15 @@ import com.eazybytes.accounts.service.IAccountService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AccountServiceImpl implements IAccountService {
 	private final CustomerRepository customerRepository;
 	private final AccountRepository accountRepository;
+	private final StreamBridge streamBridge;
 
 	@Override
 	@Transactional
@@ -38,7 +43,15 @@ public class AccountServiceImpl implements IAccountService {
 		Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
 		customer = customerRepository.save(customer);
 		
-		accountRepository.save(createNewAccount(customer));
+		Account savedAccount = accountRepository.save(createNewAccount(customer));
+		sendCommunication(savedAccount, customer);
+	}
+
+	private void sendCommunication(Account account, Customer customer) {
+		AccountsMessageDto dto = new AccountsMessageDto(account.getAccountNumber(), customer.getName(), customer.getEmail(), customer.getMobileNumber());
+		log.info("Sending Communication request for the details: {}", dto);
+		boolean result = streamBridge.send("sendCommunication-out-0", dto);
+		log.info("Is the communication request successfully processed? {}", result);
 	}
 	
 	@Override
