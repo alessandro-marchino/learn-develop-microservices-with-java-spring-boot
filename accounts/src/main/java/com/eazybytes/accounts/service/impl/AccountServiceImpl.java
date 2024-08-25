@@ -94,6 +94,18 @@ public class AccountServiceImpl implements IAccountService {
 		return true;
 	}
 
+	@Override
+	public boolean updateCommunicationStatus(Long accountNumber) {
+		if(accountNumber == null) {
+			return false;
+		}
+		Account account = accountRepository.findById(accountNumber)
+			.orElseThrow(() -> new ResourceNotFoundException("Account", "accountNumber", accountNumber));
+		account.setCommunicationSw(Boolean.TRUE);
+		accountRepository.save(account);
+		return true;
+	}
+
 	private Account createNewAccount(Customer customer) {
 		Account account = new Account();
 		account.setCustomerId(customer.getCustomerId());
@@ -101,6 +113,7 @@ public class AccountServiceImpl implements IAccountService {
 		account.setAccountNumber(randomAccNumber);
 		account.setAccountType(AccountsConstants.SAVINGS);
 		account.setBranchAddress(AccountsConstants.ADDRESS);
+		account.setCommunicationSw(Boolean.FALSE);
 		return account;
 	}
 
