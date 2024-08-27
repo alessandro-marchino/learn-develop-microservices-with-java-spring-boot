@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accounts-deployment
+  labels:
+    name: accounts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accounts
+  template:
+    metadata:
+      labels:
+        app: accounts
+    spec:
+      containers:
+      - name: accounts
+        image: marchino/accounts:s13
+        env:
+          - name: SPRING_APPLICATION_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: ACCOUNTS_APPLICATION_NAME
+                name: eazybank-configmap
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                key: SPRING_PROFILES_ACTIVE
+                name: eazybank-configmap
+          - name: SPRING_CONFIG_IMPORT
+            valueFrom:
+              configMapKeyRef:
+                key: SPRING_CONFIG_IMPORT
+                name: eazybank-configmap
+          - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+            valueFrom:
+              configMapKeyRef:
+                key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+                name: eazybank-configmap
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:h2:mem:accountsdb
+          - name: SPRING_DATASOURCE_USERNAME
+            value: sa
+          - name: SPRING_DATASOURCE_URL
+            value: password
+          - name: SPRING_H2_CONSOLE_ENABLED
+            value: "true"
+          - name: SPRING_H2_CONSOLE_SETTINGS_WEB-ALLOW-OTHERS
+            value: "true"
+        # resources:
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: accounts
+spec:
+  selector:
+    app: accounts
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: configserver-deployment
   labels:
-    name: configserver
+    app: configserver
 spec:
   replicas: 1
   selector:
