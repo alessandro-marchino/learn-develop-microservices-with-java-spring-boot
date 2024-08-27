@@ -16,11 +16,11 @@ spec:
     spec:
       containers:
       - name: configserver
-        image: marchino/configserver:s14
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image: marchino/configserver:s12
+        # resources:
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
         ports:
         - containerPort: 8071
 ---
