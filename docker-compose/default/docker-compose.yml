@@ -1,6 +1,7 @@
 services:
   read:
     image: grafana/loki:3.0.0
+    container_name: read
     command: "-config.file=/etc/loki/config.yaml -target=read"
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
@@ -17,6 +18,7 @@ services:
           - loki
   write:
     image: grafana/loki:3.0.0
+    container_name: write
     command: "-config.file=/etc/loki/config.yaml -target=write"
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
@@ -31,6 +33,7 @@ services:
       <<: *loki-dns
   alloy:
     image: grafana/alloy:v1.0.0
+    container_name: alloy
     volumes:
       - ../observability/alloy/alloy-local-config.yaml:/etc/alloy/config.alloy:ro
       - /var/run/docker.sock:/var/run/docker.sock
@@ -51,6 +54,7 @@ services:
       service: network-deploy-service
   grafana:
     image: grafana/grafana:11.0.0
+    container_name: grafana
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -71,6 +75,7 @@ services:
       service: network-deploy-service
   minio:
     image: minio/minio:RELEASE.2024-05-27T19-17-46Z
+    container_name: minio
     entrypoint:
       - sh
       - -euc
@@ -105,6 +110,7 @@ services:
       service: network-deploy-service
   backend:
     image: grafana/loki:3.0.0
+    container_name: backend
     volumes:
       - ../observability/loki/loki-config.yaml:/etc/loki/config.yaml
     command: "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
@@ -115,6 +121,7 @@ services:
       service: network-deploy-service
   gateway:
     image: nginx:1.25.5
+    container_name: gateway
     depends_on:
       - read
       - write
@@ -203,6 +210,11 @@ services:
     extends:
       file: common-config.yml
       service: network-deploy-service
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 2s
+      timeout: 30s
+      retries: 30
   kafka:
     container_name: kafka
     ports:
@@ -297,8 +309,6 @@ services:
   configserver:
     image: "marchino/configserver:s12"
     container_name: configserver_ms
-    ports:
-      - "8071:8071"
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8071/actuator/health/readiness | grep UP || exit 1"
       interval: 20s
@@ -314,8 +324,6 @@ services:
   eurekaserver:
     image: "marchino/eurekaserver:s12"
     container_name: eurekaserver_ms
-    ports:
-      - "8070:8070"
     healthcheck:
       test: "wget --no-verbose -q --tries=1 -O- localhost:8070/actuator/health/readiness | grep UP || exit 1"
       interval: 20s
@@ -344,12 +352,17 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://accountsdb:3306/accountsdb
       SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS: kafka:9094
       OTEL_SERVICE_NAME: accounts
     extends:
       file: common-config.yml
       service: microservice-eureka-config
     depends_on:
       accountsdb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      kafka:
         condition: service_healthy
   cards:
     image: "marchino/cards:s12"
@@ -417,6 +430,12 @@ services:
     environment:
       SPRING_RABBITMQ_HOST: rabbitmq
       OTEL_SERVICE_NAME: gatewayserver
+      SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS: kafka:9094
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
 
 networks:
   eazybank:
