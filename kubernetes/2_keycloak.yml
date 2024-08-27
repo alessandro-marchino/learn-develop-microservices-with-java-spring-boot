@@ -29,10 +29,10 @@ spec:
               configMapKeyRef:
                 name: eazybank-configmap
                 key: KEYCLOAK_ADMIN_PASSWORD
-        # resources:
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "500m"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "2"
         ports:
         - name: http
           containerPort: 8080

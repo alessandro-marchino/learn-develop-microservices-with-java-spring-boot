@@ -38,10 +38,10 @@ spec:
               configMapKeyRef:
                 key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
                 name: eazybank-configmap
-        # resources:
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "500m"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "2"
         ports:
         - containerPort: 8072
 ---

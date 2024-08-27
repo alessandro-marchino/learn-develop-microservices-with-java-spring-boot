@@ -38,20 +38,10 @@ spec:
               configMapKeyRef:
                 key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
                 name: eazybank-configmap
-          - name: SPRING_DATASOURCE_URL
-            value: jdbc:h2:mem:cardsdb
-          - name: SPRING_DATASOURCE_USERNAME
-            value: sa
-          - name: SPRING_DATASOURCE_URL
-            value: password
-          - name: SPRING_H2_CONSOLE_ENABLED
-            value: "true"
-          - name: SPRING_H2_CONSOLE_SETTINGS_WEB-ALLOW-OTHERS
-            value: "true"
-        # resources:
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "500m"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "2"
         ports:
         - containerPort: 9000
 ---
