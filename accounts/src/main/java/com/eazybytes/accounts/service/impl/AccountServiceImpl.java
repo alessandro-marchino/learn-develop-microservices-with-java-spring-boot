@@ -3,7 +3,6 @@ package com.eazybytes.accounts.service.impl;
 import java.util.Optional;
 import java.util.Random;
 
-import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import com.eazybytes.accounts.constants.AccountsConstants;
@@ -30,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AccountServiceImpl implements IAccountService {
 	private final CustomerRepository customerRepository;
 	private final AccountRepository accountRepository;
-	private final StreamBridge streamBridge;
+//	private final StreamBridge streamBridge;
 
 	@Override
 	@Transactional
@@ -50,7 +49,8 @@ public class AccountServiceImpl implements IAccountService {
 	private void sendCommunication(Account account, Customer customer) {
 		AccountsMessageDto dto = new AccountsMessageDto(account.getAccountNumber(), customer.getName(), customer.getEmail(), customer.getMobileNumber());
 		log.info("Sending Communication request for the details: {}", dto);
-		boolean result = streamBridge.send("sendCommunication-out-0", dto);
+//		boolean result = streamBridge.send("sendCommunication-out-0", dto);
+		boolean result = true; // FIXME
 		log.info("Is the communication request successfully processed? {}", result);
 	}
 	
