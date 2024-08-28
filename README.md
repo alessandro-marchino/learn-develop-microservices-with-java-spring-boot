@@ -7,24 +7,19 @@ Companion repository for Udemy Course
 
 - To switch to java 21: `sdk use java 21.0.3-tem`
 - To generate the images: `mvn compile jib:dockerBuild`
-- To run just the dependencies for the microservices: `dcupd accountsdb cardsdb loansdb redis`
+- To run just the dependencies for the microservices on Docker:
+`dcupd accountsdb cardsdb loansdb redis keycloak kafka`
 
 ## Keycloak
 
 URL for configuration endpoints: [http://localhost:7080/realms/master/.well-known/openid-configuration](http://localhost:7080/realms/master/.well-known/openid-configuration)
 
+- Create a client with name `eazybank-callcenter-cc` for the `Service accounts roles`
+authentication flow
+- Create the `ACCOUNTS`, `CARDS` and `LOANS` Realm roles
+- Assign the Service Account Roles to the client
+- Copy the client secreto for use in Postman
+
 ## Kubernetes dashboard
 
-Create via the following commands
-
-```bash
-# Add kubernetes-dashboard repository
-helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
-# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
-helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
-# Expose
-kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
-```
-
-Create user
-
+Please refer to the [kubernetes/dashboard/README.md](kubernetes/dashboard/README.md) file
