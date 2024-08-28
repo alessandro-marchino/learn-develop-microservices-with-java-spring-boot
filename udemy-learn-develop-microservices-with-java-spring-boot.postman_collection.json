@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "56e9bb63-0fef-4939-914b-fb7daa1a2875",
+		"_postman_id": "a1e3fa32-1595-4f63-a88b-ebe12016e5d6",
 		"name": "udemy/learn-develop-microservices-with-java-spring-boot",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13687650"
+		"_exporter_id": "29911340"
 	},
 	"item": [
 		{
@@ -15,6 +15,9 @@
 						{
 							"name": "Refresh",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -33,6 +36,9 @@
 						{
 							"name": "BusRefresh",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -51,6 +57,9 @@
 						{
 							"name": "Shutdown",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -203,6 +212,9 @@
 				{
 					"name": "Build info",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -221,6 +233,9 @@
 				{
 					"name": "Java version",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -239,6 +254,9 @@
 				{
 					"name": "Contact info",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -265,6 +283,9 @@
 						{
 							"name": "Refresh",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -283,6 +304,9 @@
 						{
 							"name": "Shutdown",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -354,6 +378,9 @@
 				{
 					"name": "Fetch card",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -402,6 +429,9 @@
 				{
 					"name": "Build info",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -420,6 +450,9 @@
 				{
 					"name": "Java version",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -438,6 +471,9 @@
 				{
 					"name": "Contact info",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -461,6 +497,9 @@
 				{
 					"name": "{account}/{profiles}",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -489,6 +528,9 @@
 				{
 					"name": "encrypt",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -515,6 +557,9 @@
 				{
 					"name": "decrypt",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -546,6 +591,9 @@
 				{
 					"name": "eureka/apps",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -570,6 +618,9 @@
 				{
 					"name": "eureka/apps/{appName}",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -609,6 +660,9 @@
 						{
 							"name": "Refresh",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -627,6 +681,9 @@
 						{
 							"name": "Shutdown",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -698,6 +755,9 @@
 				{
 					"name": "Fetch loan",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -746,6 +806,9 @@
 				{
 					"name": "Build info",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -764,6 +827,9 @@
 				{
 					"name": "Java version",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -782,6 +848,9 @@
 				{
 					"name": "Contact info",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -858,6 +927,11 @@
 							"type": "oauth2",
 							"oauth2": [
 								{
+									"key": "scope",
+									"value": "openid email profile",
+									"type": "string"
+								},
+								{
 									"key": "clientSecret",
 									"value": "{{client_secret_ac}}",
 									"type": "string"
@@ -880,11 +954,6 @@
 								{
 									"key": "state",
 									"value": "{{$guid}}",
-									"type": "string"
-								},
-								{
-									"key": "scope",
-									"value": "openid email profile",
 									"type": "string"
 								},
 								{
@@ -1123,13 +1192,13 @@
 			"type": "string"
 		},
 		{
-			"key": "client_secret",
-			"value": "X6TSfesItNGL1BGTcI6i2huKQuubUItE",
+			"key": "client_id",
+			"value": "eazybank-callcenter-cc",
 			"type": "string"
 		},
 		{
-			"key": "client_id",
-			"value": "eazybank-callcenter-cc",
+			"key": "client_secret",
+			"value": "X6TSfesItNGL1BGTcI6i2huKQuubUItE",
 			"type": "string"
 		},
 		{
