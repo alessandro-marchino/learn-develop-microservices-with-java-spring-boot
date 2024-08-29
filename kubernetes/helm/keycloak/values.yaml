@@ -535,7 +535,6 @@ sidecars: []
 service:
   ## @param service.type Kubernetes service type
   ##
-  # type: ClusterIP
   type: LoadBalancer
   ## @param service.http.enabled Enable http port on service
   ##
