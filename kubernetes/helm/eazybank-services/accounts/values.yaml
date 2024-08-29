@@ -10,7 +10,7 @@ replicaCount: 1
 
 image:
   repository: marchino/accounts
-  tag: s14a
+  tag: s14
 
 containerPort: 8080
 
