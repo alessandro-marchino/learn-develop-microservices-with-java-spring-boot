@@ -10,3 +10,11 @@
 - service.ports.https
 - postgresql.auth.postgresPassword
 - postgresql.auth.password
+
+### Kafka
+
+- controller.replicaCount
+- listeners.client.protocol
+- listeners.controller.protocol
+- listeners.interbroker.protocol
+- listeners.external.protocol
