@@ -1,5 +1,5 @@
 **/.data/
 .vscode/
 
-**/charts/*.tgz
+**/charts/**/*
 **/Chart.lock
