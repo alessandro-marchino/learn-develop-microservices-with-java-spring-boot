@@ -1308,9 +1308,9 @@ keycloakConfigCli:
 postgresql:
   enabled: true
   auth:
-    postgresPassword: ""
+    postgresPassword: postgresql_pwd
     username: bn_keycloak
-    password: ""
+    password: bn_keycloak_pwd
     database: bitnami_keycloak
     existingSecret: ""
     secretKeys:
