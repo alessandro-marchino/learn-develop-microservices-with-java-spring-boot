@@ -46,3 +46,7 @@ kubectl port-forward --namespace default svc/prometheus-server 9091:9090
 
 - tempo.traces.otlp.http
 - tempo.traces.otlp.grpc
+
+## Grafana
+
+- datasources.secretDefinition
