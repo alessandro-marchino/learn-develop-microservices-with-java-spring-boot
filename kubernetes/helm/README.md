@@ -1,18 +1,5 @@
 # Helm
 
-## Namespaces
-
-Creazione dei vari namespace
-
-```bash
-kubectl create namespace keycloak
-kubectl create namespace kafka
-kubectl create namespace prometheus
-kubectl create namespace loki
-kubectl create namespace tempo
-kubectl create namespace grafana
-```
-
 ## Valori modificati nei chart
 
 ### Keycloack
@@ -25,7 +12,7 @@ kubectl create namespace grafana
 - postgresql.auth.password
 
 ```bash
-helm install keycloak ./keycloak --namespace keycloak
+helm install keycloak ./keycloak
 ```
 
 ### Kafka
@@ -37,7 +24,7 @@ helm install keycloak ./keycloak --namespace keycloak
 - listeners.external.protocol
 
 ```bash
-helm install kafka ./kafka --namespace kafka
+helm install kafka ./kafka
 ```
 
 ### Kube-Prometheus
@@ -46,37 +33,52 @@ helm install kafka ./kafka --namespace kafka
 - alertmanager.enabled
 
 ```bash
-helm install prometheus ./kube-prometheus --namespace prometheus
+helm install prometheus ./kube-prometheus
 ```
 
-To expose Prometheus:
+To expose:
 
 ```bash
-kubectl port-forward --namespace default svc/prometheus-kube-prometheus-prometheus 9090:9090
+kubectl port-forward svc/prometheus-kube-prometheus-prometheus 9090:9090
 ```
 
-## Grafana-Loki
+### Grafana-Loki
 
 Nessuna modifica
 
 ```bash
-helm install loki ./grafana-loki --namespace loki
+helm install loki ./grafana-loki
 ```
 
-## Grafana-Tempo
+### Grafana-Tempo
 
 - tempo.traces.otlp.http
 - tempo.traces.otlp.grpc
 
 ```bash
-helm install tempo ./grafana-tempo --namespace tempo
+helm install tempo ./grafana-tempo
 ```
 
-## Grafana
+### Grafana
 
 - datasources.secretDefinition
 - admin.password
 
 ```bash
-helm install grafana ./grafana --namespace grafana
+helm install grafana ./grafana
+```
+
+To expose:
+
+```bash
+kubectl port-forward svc/grafana 3000:3000
+```
+
+
+## Deploy prodotto
+
+### Dev
+
+```bash
+helm install eazybank-dev ./dev-env
 ```

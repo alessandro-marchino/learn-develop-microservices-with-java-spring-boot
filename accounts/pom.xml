@@ -17,7 +17,7 @@
     <description>Microservice for accounts</description>
     <properties>
         <java.version>21</java.version>
-        <docker-tag>s14a</docker-tag>
+        <docker-tag>s14</docker-tag>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <otel.version>1.33.5</otel.version>
     </properties>
@@ -80,7 +80,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
         </dependency>
-        <!--
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream</artifactId>
@@ -89,7 +88,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream-binder-kafka</artifactId>
         </dependency>
-        -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
