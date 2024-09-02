@@ -44,7 +44,7 @@ nameOverride: ""
 fullnameOverride: ""
 ## @param namespaceOverride String to fully override common.names.namespace
 ##
-namespaceOverride: ""
+namespaceOverride: prometheus
 ## @param commonAnnotations Annotations to add to all deployed objects
 ##
 commonAnnotations: {}

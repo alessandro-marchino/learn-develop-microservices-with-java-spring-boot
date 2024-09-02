@@ -18,8 +18,8 @@ APP VERSION: {{ .Chart.AppVersion }}
     export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "common.names.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
     echo http://$SERVICE_IP:{{ .Values.service.ports.grafana }}
 {{- else if contains "ClusterIP" .Values.service.type }}
-    echo "Browse to http://127.0.0.1:8080"
-    kubectl port-forward svc/{{ include "common.names.fullname" . }} 8080:{{ .Values.service.ports.grafana }} &
+    echo "Browse to http://127.0.0.1:3000"
+    kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ include "common.names.fullname" . }} 3000:{{ .Values.service.ports.grafana }} &
 {{- end }}
 
 2. Get the admin credentials:

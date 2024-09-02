@@ -1,5 +1,18 @@
 # Helm
 
+## Namespaces
+
+Creazione dei vari namespace
+
+```bash
+kubectl create namespace keycloak
+kubectl create namespace kafka
+kubectl create namespace prometheus
+kubectl create namespace loki
+kubectl create namespace tempo
+kubectl create namespace grafana
+```
+
 ## Valori modificati nei chart
 
 ### Keycloack
@@ -11,6 +24,10 @@
 - postgresql.auth.postgresPassword
 - postgresql.auth.password
 
+```bash
+helm install keycloak ./keycloak --namespace keycloak
+```
+
 ### Kafka
 
 - controller.replicaCount
@@ -19,10 +36,18 @@
 - listeners.interbroker.protocol
 - listeners.external.protocol
 
-### Prometheus
+```bash
+helm install kafka ./kafka --namespace kafka
+```
+
+### Kube-Prometheus
 
 - server.additionalScrapeConfigs.internal.jobList
 - alertmanager.enabled
+
+```bash
+helm install prometheus ./kube-prometheus --namespace prometheus
+```
 
 To expose Prometheus:
 
@@ -30,22 +55,28 @@ To expose Prometheus:
 kubectl port-forward --namespace default svc/prometheus-kube-prometheus-prometheus 9090:9090
 ```
 
-## Loki
+## Grafana-Loki
 
-- deploymentMode: SingleBinary
-- loki.commonConfig.replication_factor: 1
-- loki.storage.type: 'filesystem'
-- loki.schemaConfig. configs: [ {"from": "2024-01-01", "store": "tsdb", "index": {"prefix": "loki_index_", "period": "24h"}, "object_store": "filesystem", "schema": "v13"} ]
-- singleBinary.replicas: 1
-- read.replicas: 0
-- backend.replicas: 0
-- write.replicas: 0
+Nessuna modifica
+
+```bash
+helm install loki ./grafana-loki --namespace loki
+```
 
 ## Grafana-Tempo
 
 - tempo.traces.otlp.http
 - tempo.traces.otlp.grpc
 
+```bash
+helm install tempo ./grafana-tempo --namespace tempo
+```
+
 ## Grafana
 
 - datasources.secretDefinition
+- admin.password
+
+```bash
+helm install grafana ./grafana --namespace grafana
+```

@@ -1,0 +1,10 @@
+global:
+  configMapName: ""
+  activeProfile: ""
+  configServerURL: ""
+  eurekaServerURL: ""
+  keyCloakURL: ""
+  openTelemetryJavaAgent: ""
+  otelExporterEndpoint: ""
+  otelMetricsExporter: ""
+  kafkaBrokerURL: ""
