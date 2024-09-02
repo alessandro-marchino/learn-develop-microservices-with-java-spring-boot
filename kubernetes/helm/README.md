@@ -21,14 +21,13 @@
 
 ### Prometheus
 
-- server.extraScrapeConfigs
-- server.service.type
-- alertmanager.service.type
+- server.additionalScrapeConfigs.internal.jobList
+- alertmanager.enabled
 
 To expose Prometheus:
 
 ```bash
-kubectl port-forward --namespace default svc/prometheus-server 9091:9090
+kubectl port-forward --namespace default svc/prometheus-kube-prometheus-prometheus 9090:9090
 ```
 
 ## Loki

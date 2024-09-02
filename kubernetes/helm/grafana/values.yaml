@@ -88,7 +88,7 @@ admin:
   user: "admin"
   ## @param admin.password Admin password. If a password is not provided a random password will be generated
   ##
-  password: ""
+  password: "password"
   ## @param admin.existingSecret Name of the existing secret containing admin password
   ##
   existingSecret: ""
@@ -287,7 +287,7 @@ datasources:
         - name: Prometheus
           type: prometheus
           uid: prometheus
-          url: http://prometheus-kube-prometheus-prometheus:9090
+          url: http://prometheus-kube-prometheus-prometheus.default.svc.cluster.local:9090
           access: proxy
           orgId: 1
           basicAuth: false
