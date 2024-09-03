@@ -1,12 +1,17 @@
 spring:
   application:
     name: cards
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
   config:
     import: "optional:configserver:http://localhost:8071/"
   datasource:
-    url: jdbc:mysql://localhost:3308/cardsdb
-    username: root
-    password: root
+    url: jdbc:h2:mem:cardsdb
+    username: sa
+    password: password
   jpa:
     show-sql: true
   sql:
