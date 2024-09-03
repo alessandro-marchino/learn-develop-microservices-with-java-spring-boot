@@ -15,7 +15,8 @@ image:
 containerPort: 8071
 
 service:
-  type: ClusterIP
+  # type: ClusterIP
+  type: LoadBalancer
   port: 8071
   targetPort: 8071
 

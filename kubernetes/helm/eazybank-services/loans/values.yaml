@@ -15,7 +15,8 @@ image:
 containerPort: 8090
 
 service:
-  type: ClusterIP
+  # type: ClusterIP
+  type: LoadBalancer
   port: 8090
   targetPort: 8090
 

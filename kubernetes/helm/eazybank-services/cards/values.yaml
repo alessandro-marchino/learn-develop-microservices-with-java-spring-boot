@@ -15,7 +15,8 @@ image:
 containerPort: 9000
 
 service:
-  type: ClusterIP
+  # type: ClusterIP
+  type: LoadBalancer
   port: 9000
   targetPort: 9000
 

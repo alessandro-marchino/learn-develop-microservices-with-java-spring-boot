@@ -15,7 +15,8 @@ image:
 containerPort: 9010
 
 service:
-  type: ClusterIP
+  # type: ClusterIP
+  type: LoadBalancer
   port: 9010
   targetPort: 9010
 
