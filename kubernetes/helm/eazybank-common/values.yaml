@@ -2,7 +2,7 @@ global:
   configMapName: ""
   activeProfile: ""
   configServerURL: ""
-  eurekaServerURL: ""
+  discoveryServerUrl: ""
   keyCloakURL: ""
   openTelemetryJavaAgent: ""
   otelExporterEndpoint: ""

@@ -8,7 +8,9 @@ sdk use java 21.0.3-tem
 
 execute_build() {
     FOLDER="$1"
-    pushd "$SCRIPT_DIR/$FOLDER" || exit ; mvn clean compile jib:dockerBuild ; popd || exit
+    pushd "$SCRIPT_DIR/$FOLDER" || exit
+    mvn clean compile jib:dockerBuild
+    popd || exit
 }
 
 execute_build accounts

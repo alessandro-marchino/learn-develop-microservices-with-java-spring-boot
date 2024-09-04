@@ -23,7 +23,7 @@ service:
 appName_enabled: true
 profile_enabled: false
 config_enabled: false
-eureka_enabled: false
+discovery_enabled: false
 resourceserver_enabled: false
 otel_enabled: false
 kafka_enabled: true

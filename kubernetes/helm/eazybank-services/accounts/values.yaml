@@ -6,11 +6,11 @@ serviceName: accounts
 appLabel: accounts
 appName: accounts
 
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: marchino/accounts
-  tag: s14
+  tag: s17
 
 containerPort: 8080
 
@@ -23,7 +23,7 @@ service:
 appName_enabled: true
 profile_enabled: true
 config_enabled: true
-eureka_enabled: true
+discovery_enabled: true
 resourceserver_enabled: false
 otel_enabled: true
 kafka_enabled: true

@@ -2,7 +2,7 @@ global:
   configMapName: eazybank-dev-configmap
   activeProfile: git,k8s
   configServerURL: configserver:http://configserver.default.svc.cluster.local:8071/
-  eurekaServerURL: http://eurekaserver.default.svc.cluster.local:8070/eureka/
+  discoveryServerUrl: http://spring-cloud-kubernetes-discoveryserver.default.svc.cluster.local:80
   keyCloakURL: http://keycloak.default.svc.cluster.local:7080/realms/master/protocol/openid-connect/certs
   openTelemetryJavaAgent: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
   otelExporterEndpoint: http://tempo-grafana-tempo-distributor.default.svc.cluster.local:4317

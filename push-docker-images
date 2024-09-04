@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=s14
+VERSION=s17
 
 docker push "marchino/accounts:$VERSION"
 docker push "marchino/cards:$VERSION"
