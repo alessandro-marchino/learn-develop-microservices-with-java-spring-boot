@@ -3,6 +3,7 @@ package com.eazybytes.loans;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import com.eazybytes.loans.dto.LoanContactInfoDto;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @EnableConfigurationProperties(value = LoanContactInfoDto.class)
 @OpenAPIDefinition(
