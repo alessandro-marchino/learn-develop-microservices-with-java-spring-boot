@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eazybytes.common.dto.ErrorResponseDto;
+import com.eazybytes.common.dto.ResponseDto;
 import com.eazybytes.loans.constants.LoansConstants;
-import com.eazybytes.loans.dto.ErrorResponseDto;
 import com.eazybytes.loans.dto.LoanContactInfoDto;
 import com.eazybytes.loans.dto.LoanDto;
-import com.eazybytes.loans.dto.ResponseDto;
 import com.eazybytes.loans.service.ILoanService;
 
 import io.swagger.v3.oas.annotations.Operation;

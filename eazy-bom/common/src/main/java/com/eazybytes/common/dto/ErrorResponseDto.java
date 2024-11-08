@@ -1,4 +1,4 @@
-package com.eazybytes.cards.dto;
+package com.eazybytes.common.dto;
 
 import java.time.LocalDateTime;
 

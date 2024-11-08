@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.AccountContactInfoDto;
 import com.eazybytes.accounts.dto.CustomerDto;
-import com.eazybytes.accounts.dto.ErrorResponseDto;
-import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.service.IAccountService;
+import com.eazybytes.common.dto.ErrorResponseDto;
+import com.eazybytes.common.dto.ResponseDto;
 
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;

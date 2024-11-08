@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eazybytes.cards.constants.CardsConstants;
 import com.eazybytes.cards.dto.CardContactInfoDto;
 import com.eazybytes.cards.dto.CardDto;
-import com.eazybytes.cards.dto.ErrorResponseDto;
-import com.eazybytes.cards.dto.ResponseDto;
 import com.eazybytes.cards.service.ICardService;
+import com.eazybytes.common.dto.ErrorResponseDto;
+import com.eazybytes.common.dto.ResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

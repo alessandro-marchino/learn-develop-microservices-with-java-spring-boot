@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eazybytes.accounts.dto.CustomerDetailDto;
-import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.service.ICustomerService;
+import com.eazybytes.common.dto.ErrorResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
